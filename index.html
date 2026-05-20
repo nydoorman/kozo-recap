@@ -214,16 +214,82 @@ footer span{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:upp
   a{color:inherit!important;text-decoration:none!important}
 }
 @media(max-width:768px){
-  nav{padding:0 20px}
-  .nav-links{display:none}
+  /* NAV */
+  nav{padding:0 20px;height:56px}
+  .nav-logo{font-size:10px}
+  .nav-links{display:none;position:fixed;top:56px;left:0;right:0;background:var(--navy);padding:16px 0;flex-direction:column;gap:0;z-index:901;border-bottom:1px solid rgba(255,255,255,.1)}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:14px 24px;border-bottom:none;letter-spacing:.15em;color:rgba(255,255,255,.7);font-size:12px}
+  .nav-links a:hover,.nav-links a.active{color:#fff;border-bottom:none;background:rgba(255,255,255,.05)}
+  .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+  .hamburger span{display:block;width:22px;height:2px;background:var(--navy);transition:.2s}
+
+  /* LAYOUT */
   .cover-page,.sec-hdr{flex-direction:column}
   .cover-left,.cover-right,.sec-hdr-left,.sec-hdr-right{width:100%}
-  .cover-right{height:280px}
-  .content{padding:40px 20px}
-  .dark{padding:40px 20px}
-  .press-grid,.rel-grid,.compete-grid,.quote-grid,.big-stats,.bucket-grid{grid-template-columns:1fr}
-  .photo-row.cols-3,.photo-row.cols-4{grid-template-columns:1fr 1fr}
-  footer{flex-direction:column;gap:8px;text-align:center;padding:24px 20px}
+  .cover-right{height:240px}
+  .cover-left{padding:32px 20px}
+  .cover-title{font-size:clamp(40px,12vw,64px)}
+  .cover-sub{font-size:16px;margin-bottom:32px}
+  .cover-meta{grid-template-columns:1fr 1fr}
+  .sec-hdr-left{padding:32px 20px 24px}
+  .sec-hdr-right{height:180px}
+  .sec-title{font-size:clamp(28px,8vw,40px)}
+
+  /* CONTENT */
+  .content{padding:28px 16px}
+  .dark{padding:28px 16px}
+  .content-wide{padding:28px 16px}
+  h2{font-size:clamp(18px,5vw,26px)}
+  h3{font-size:16px;margin:32px 0 12px}
+  p{font-size:14px}
+
+  /* GRIDS */
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .stat-item{padding:18px 14px}
+  .stat-n{font-size:clamp(18px,5vw,26px)}
+  .press-grid{grid-template-columns:1fr}
+  .rel-grid{grid-template-columns:1fr}
+  .compete-grid{grid-template-columns:1fr 1fr}
+  .quote-grid{grid-template-columns:1fr}
+  .big-stats{grid-template-columns:1fr 1fr}
+  .bucket-grid{grid-template-columns:1fr}
+  .guest-grid{grid-template-columns:1fr 1fr}
+  .split{grid-template-columns:1fr;gap:24px}
+  .tier-grid{grid-template-columns:repeat(2,1fr)}
+  .meta-row{grid-template-columns:1fr}
+  .cover-meta-item{border-right:none;border-bottom:1px solid var(--rule);padding:12px 0}
+  .cover-meta-item:last-child{border-bottom:none}
+
+  /* PHOTOS */
+  .photo-row.cols-2{grid-template-columns:1fr 1fr}
+  .photo-row.cols-3{grid-template-columns:1fr 1fr}
+  .photo-row.cols-4{grid-template-columns:1fr 1fr}
+  .photo-cell{height:160px}
+
+  /* SOCIAL COVERAGE 4-COL */
+  div[style*="repeat(4,1fr)"]{grid-template-columns:1fr 1fr!important}
+
+  /* TABLES */
+  .tbl{font-size:12px}
+  .tbl thead th,.tbl td{padding:10px 0}
+  .tbl td+td,.tbl thead th+th{padding-left:8px}
+  .td-n{font-size:13px}
+  .td-s{font-size:10px}
+  table.tbl{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+  /* COST TABLE */
+  .cost-tbl{font-size:13px}
+
+  /* BLOCKQUOTE */
+  .bq p{font-size:15px}
+
+  /* CLOSING */
+  .closing{padding:48px 20px;min-height:200px}
+  .closing h2{font-size:clamp(28px,8vw,48px)}
+
+  /* FOOTER */
+  footer{flex-direction:column;gap:6px;text-align:center;padding:20px 16px}
 }
 </style>
 </head>
@@ -231,7 +297,10 @@ footer span{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:upp
 
 <nav>
   <span class="nav-logo" onclick="go('cover')">Kozo × CART Dept</span>
-  <ul class="nav-links">
+  <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu" style="display:none;background:none;border:none;cursor:pointer;padding:8px">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
     <li><a onclick="go('overview')" id="n-overview">Overview</a></li>
     <li><a onclick="go('partners')" id="n-partners">Partners</a></li>
     <li><a onclick="go('press')" id="n-press">Press</a></li>
@@ -1035,6 +1104,20 @@ footer span{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:upp
 <script>
 const pages = ['cover','overview','partners','press','social','world','guests','investment'];
 
+  // Hamburger toggle
+  function toggleNav(){
+    const links = document.getElementById('navLinks');
+    links.classList.toggle('open');
+  }
+
+  // Show hamburger on mobile
+  function checkMobile(){
+    const hb = document.getElementById('hamburger');
+    if(hb) hb.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+  }
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+
 function go(id) {
   document.querySelectorAll('.page,.cover-page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
@@ -1043,6 +1126,9 @@ function go(id) {
   const nav = document.getElementById('n-' + id);
   if (nav) nav.classList.add('active');
   window.scrollTo(0, 0);
+  // Close mobile nav on selection
+  const nl = document.getElementById('navLinks');
+  if (nl) nl.classList.remove('open');
 }
 
 document.addEventListener('keydown', e => {
