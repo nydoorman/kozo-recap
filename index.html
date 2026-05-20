@@ -3,1373 +3,1417 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kozo x CART Dept — Permanent Impermanence Recap</title>
+  <title>Kozo × CART Dept — Permanent Impermanence Recap</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --cream: #faf8f6;
-      --dark: #111111;
-      --accent: #c9a961;
-      --accent-light: rgba(201, 169, 97, 0.15);
-      --gray: #7a7a7a;
-      --mid-gray: #444444;
-      --light-gray: #e8e6e2;
-      --rule: rgba(201, 169, 97, 0.25);
+      --bg:       #F0EFED;
+      --bg-dark:  #111111;
+      --black:    #0D0D0D;
+      --headline: #111111;
+      --body:     #2E2E2E;
+      --muted:    #6B6B6B;
+      --rule:     #D8D6D2;
+      --white:    #FFFFFF;
+      --col-w:    960px;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; font-size: 16px; }
 
     body {
-      font-family: 'Josefin Sans', sans-serif;
-      background: var(--cream);
-      color: var(--dark);
-      line-height: 1.65;
-      font-size: 16px;
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--body);
+      line-height: 1.6;
       overflow-x: hidden;
     }
 
-    /* NAV */
+    /* ─── NAV ─── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      background: #000;
-      padding: 0 60px;
-      height: 72px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      z-index: 1000;
-      border-bottom: 1px solid var(--rule);
+      padding: 0 48px;
+      z-index: 900;
     }
 
-    .logo {
-      font-family: 'Bebas Neue', sans-serif;
-      letter-spacing: 3px;
-      font-size: 20px;
-      color: var(--cream);
-      text-decoration: none;
+    .nav-logo {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--headline);
       cursor: pointer;
+      user-select: none;
     }
-
-    .logo span { color: var(--accent); }
 
     .nav-links {
       display: flex;
-      gap: 28px;
+      gap: 24px;
       list-style: none;
     }
 
     .nav-links a {
-      color: rgba(250,248,246,0.55);
-      text-decoration: none;
       font-size: 11px;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
       font-weight: 500;
-      transition: color 0.2s;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
       cursor: pointer;
+      transition: color 0.15s;
       padding-bottom: 2px;
       border-bottom: 1px solid transparent;
     }
 
     .nav-links a:hover,
     .nav-links a.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
+      color: var(--headline);
+      border-bottom-color: var(--headline);
     }
 
-    /* PAGES */
+    /* ─── PAGES ─── */
     .page {
       display: none;
       min-height: 100vh;
-      padding-bottom: 120px;
-      margin-top: 72px;
-      animation: fadeIn 0.5s ease-out;
+      padding-top: 64px;
+      animation: up 0.35s ease;
     }
 
     .page.active { display: block; }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(16px); }
+    @keyframes up {
+      from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* HERO PAGE */
-    .hero-page {
+    /* ─── HERO COVER ─── */
+    .cover-page {
       display: none;
       min-height: 100vh;
-      margin-top: 0;
-      padding-top: 72px;
+      padding-top: 64px;
+      flex-direction: row;
+    }
+
+    .cover-page.active { display: flex; }
+
+    .cover-left {
+      width: 50%;
+      display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      background: #000;
-      color: var(--cream);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+      padding: 80px 64px;
+      background: var(--bg);
     }
 
-    .hero-page.active { display: flex; }
-
-    .hero-bg-text {
-      position: absolute;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 28vw;
-      color: rgba(255,255,255,0.025);
-      letter-spacing: -4px;
-      white-space: nowrap;
-      pointer-events: none;
-      user-select: none;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      line-height: 1;
-    }
-
-    .hero-content {
-      max-width: 860px;
-      padding: 0 40px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-eyebrow {
+    .cover-eyebrow {
       font-size: 11px;
-      letter-spacing: 3px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--muted);
       margin-bottom: 32px;
-      font-weight: 500;
     }
 
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(64px, 10vw, 120px);
-      line-height: 0.95;
-      letter-spacing: 2px;
+    .cover-title {
+      font-size: clamp(52px, 6vw, 84px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--headline);
       margin-bottom: 8px;
-      color: var(--cream);
     }
 
-    .hero-title span { color: var(--accent); }
-
-    .hero-subtitle-line {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(24px, 4vw, 42px);
-      letter-spacing: 4px;
-      color: rgba(250,248,246,0.45);
-      margin-bottom: 48px;
+    .cover-subtitle {
+      font-size: clamp(18px, 2vw, 26px);
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 56px;
     }
 
-    .hero-divider {
-      width: 60px;
-      height: 1px;
-      background: var(--accent);
-      margin: 0 auto 40px;
-    }
-
-    .hero-meta-grid {
+    .cover-meta {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--rule);
-      border: 1px solid var(--rule);
-      margin-top: 60px;
+      gap: 0;
+      border-top: 1px solid var(--rule);
     }
 
-    .hero-meta-item {
-      background: rgba(255,255,255,0.03);
-      padding: 24px 20px;
-      text-align: center;
+    .cover-meta-item {
+      padding: 20px 0;
+      border-right: 1px solid var(--rule);
     }
 
-    .hero-meta-label {
+    .cover-meta-item:last-child { border-right: none; padding-right: 0; }
+    .cover-meta-item:not(:first-child) { padding-left: 20px; }
+
+    .cover-meta-label {
       font-size: 10px;
-      letter-spacing: 2px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 8px;
+      color: var(--muted);
+      margin-bottom: 4px;
     }
 
-    .hero-meta-value {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 22px;
-      letter-spacing: 1px;
-      color: var(--cream);
+    .cover-meta-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--headline);
     }
 
-    /* SECTION HEROES */
-    .page-hero {
-      background: linear-gradient(150deg, #0a0a0a 0%, #1a1a1a 100%);
-      color: var(--cream);
-      padding: 72px 60px 60px;
-      margin-bottom: 72px;
-      border-bottom: 1px solid var(--rule);
+    .cover-right {
+      width: 50%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 3px;
+      background: #ccc;
     }
 
-    .page-hero-eyebrow {
-      font-size: 11px;
-      letter-spacing: 3px;
+    .cover-photo {
+      background: var(--bg-dark);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cover-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.9;
+    }
+
+    /* BFA photo embeds */
+    .bfa-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ─── SECTION HEADER ─── */
+    .section-header {
+      display: flex;
+      flex-direction: row;
+      min-height: 260px;
+    }
+
+    .section-header-left {
+      width: 50%;
+      padding: 72px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background: var(--bg);
+      border-right: 1px solid var(--rule);
+    }
+
+    .section-num {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--muted);
       margin-bottom: 16px;
     }
 
-    .page-hero h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(48px, 7vw, 80px);
+    .section-title {
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 800;
       line-height: 1.0;
-      letter-spacing: 2px;
-      color: var(--cream);
-      max-width: 800px;
-      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+      color: var(--headline);
+      margin-bottom: 16px;
     }
 
-    .page-hero-sub {
-      font-size: 15px;
-      color: rgba(250,248,246,0.6);
-      max-width: 600px;
-      line-height: 1.7;
+    .section-desc {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 380px;
+      line-height: 1.65;
     }
 
-    /* CONTENT */
-    .page-content {
-      max-width: 1100px;
+    .section-header-right {
+      width: 50%;
+      background: var(--bg-dark);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .section-header-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+    }
+
+    /* dark placeholder */
+    .section-header-right.dark-fill {
+      background: var(--bg-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section-header-right.dark-fill span {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ─── CONTENT ─── */
+    .content {
+      max-width: var(--col-w);
       margin: 0 auto;
-      padding: 0 60px;
+      padding: 64px 48px;
     }
 
+    .content-wide {
+      padding: 64px 48px;
+    }
+
+    /* ─── LABEL ─── */
+    .label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    /* ─── HEADINGS ─── */
     h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 48px;
-      line-height: 1.0;
-      letter-spacing: 2px;
-      margin-bottom: 40px;
-      color: var(--dark);
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--headline);
+      margin-bottom: 20px;
+      line-height: 1.1;
     }
 
     h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 28px;
-      letter-spacing: 1.5px;
-      margin: 48px 0 20px;
-      color: var(--dark);
-    }
-
-    h4 {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 11px;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 8px;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--headline);
+      margin: 48px 0 16px;
     }
 
     p {
       font-size: 15px;
       line-height: 1.75;
-      color: var(--mid-gray);
-      margin-bottom: 18px;
+      color: var(--body);
+      margin-bottom: 16px;
     }
 
-    p strong { color: var(--dark); font-weight: 600; }
+    p strong { color: var(--headline); }
 
-    /* RULE */
-    .rule {
-      width: 100%;
-      height: 1px;
-      background: var(--light-gray);
-      margin: 60px 0;
-    }
+    /* ─── RULE ─── */
+    .rule { border: none; border-top: 1px solid var(--rule); margin: 56px 0; }
 
-    .rule-gold {
-      width: 40px;
-      height: 2px;
-      background: var(--accent);
-      margin-bottom: 24px;
-    }
-
-    /* STAT GRID */
+    /* ─── STAT GRID ─── */
     .stat-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1px;
-      background: var(--light-gray);
-      border: 1px solid var(--light-gray);
-      margin: 48px 0;
-    }
-
-    .stat-item {
-      background: var(--cream);
-      padding: 36px 28px;
-    }
-
-    .stat-number {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 52px;
-      line-height: 1;
-      letter-spacing: 1px;
-      color: var(--dark);
-      margin-bottom: 8px;
-    }
-
-    .stat-number.gold { color: var(--accent); }
-
-    .stat-label {
-      font-size: 11px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gray);
-      font-weight: 500;
-    }
-
-    .stat-sub {
-      font-size: 13px;
-      color: var(--gray);
-      margin-top: 6px;
-    }
-
-    /* SPONSOR TABLE */
-    .sponsor-table {
-      width: 100%;
-      border-collapse: collapse;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      border: 1px solid var(--rule);
       margin: 40px 0;
     }
 
-    .sponsor-table thead tr {
-      border-bottom: 2px solid var(--dark);
+    .stat-item {
+      padding: 32px 28px;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
     }
 
-    .sponsor-table th {
+    .stat-item:last-child { border-right: none; }
+
+    .stat-n {
+      font-size: clamp(36px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--headline);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-l {
       font-size: 10px;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
       font-weight: 600;
-      color: var(--gray);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .stat-s {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ─── SPLIT ROW ─── */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--rule);
+      margin: 40px 0;
+    }
+
+    .split-col {
+      padding: 40px 36px;
+      border-right: 1px solid var(--rule);
+    }
+
+    .split-col:last-child { border-right: none; }
+
+    /* ─── TABLE ─── */
+    .tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 32px 0;
+    }
+
+    .tbl thead th {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
       padding: 0 0 14px;
       text-align: left;
+      border-bottom: 1px solid var(--headline);
     }
 
-    .sponsor-table th:not(:first-child) { padding-left: 24px; }
+    .tbl thead th + th { padding-left: 20px; }
 
-    .sponsor-table tbody tr {
-      border-bottom: 1px solid var(--light-gray);
+    .tbl tbody tr {
+      border-bottom: 1px solid var(--rule);
+      transition: background 0.1s;
     }
 
-    .sponsor-table tbody tr:hover { background: rgba(201,169,97,0.04); }
+    .tbl tbody tr:hover { background: rgba(0,0,0,0.02); }
 
-    .sponsor-table td {
-      padding: 18px 0;
-      font-size: 14px;
-      color: var(--dark);
-      vertical-align: middle;
+    .tbl td {
+      padding: 16px 0;
+      vertical-align: top;
+      color: var(--body);
     }
 
-    .sponsor-table td:not(:first-child) { padding-left: 24px; }
+    .tbl td + td { padding-left: 20px; }
 
-    .sponsor-name {
-      font-weight: 600;
-      font-size: 15px;
-    }
+    .td-name { font-weight: 700; color: var(--headline); font-size: 15px; }
+    .td-sub  { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-    .sponsor-handle {
-      font-size: 12px;
-      color: var(--gray);
-      letter-spacing: 0.5px;
-      margin-top: 2px;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 2px;
-    }
-
-    .badge-cash { background: rgba(201,169,97,0.15); color: #8a6c2a; }
-    .badge-inkind { background: rgba(100,180,100,0.12); color: #2d7a3a; }
-    .badge-nofee { background: rgba(100,130,200,0.12); color: #2d4d8a; }
-
-    .total-row td {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 22px;
-      letter-spacing: 1px;
-      padding-top: 28px;
-      border-top: 2px solid var(--dark);
+    .tbl tfoot td {
+      padding-top: 20px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--headline);
+      border-top: 1px solid var(--headline);
       border-bottom: none;
     }
 
-    /* PRESS CARDS */
+    /* ─── PARTNER TIERS ─── */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 3px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin: 40px 0;
+    }
+
+    .tier-item {
+      background: var(--bg);
+      padding: 28px 16px;
+      text-align: center;
+    }
+
+    .tier-name {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--headline);
+      margin-bottom: 12px;
+    }
+
+    .tier-amount {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--headline);
+      margin-bottom: 4px;
+    }
+
+    .tier-handle {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .tier-followers {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* ─── PRESS CARDS ─── */
     .press-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      background: var(--rule);
       margin: 40px 0;
     }
 
     .press-card {
-      border: 1px solid var(--light-gray);
-      padding: 32px;
-      transition: border-color 0.2s;
+      background: var(--bg);
+      padding: 36px 32px;
     }
-
-    .press-card:hover { border-color: var(--accent); }
 
     .press-pub {
       font-size: 10px;
-      letter-spacing: 3px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 14px;
-    }
-
-    .press-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 26px;
-      letter-spacing: 1px;
-      line-height: 1.15;
-      color: var(--dark);
+      color: var(--muted);
       margin-bottom: 16px;
     }
 
-    .press-excerpt {
+    .press-hed {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--headline);
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+
+    .press-body {
       font-size: 13px;
       line-height: 1.7;
-      color: var(--gray);
+      color: var(--muted);
       margin-bottom: 20px;
     }
 
     .press-link {
       font-size: 11px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent);
-      text-decoration: none;
       font-weight: 600;
-      border-bottom: 1px solid var(--accent);
-      padding-bottom: 2px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--headline);
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
-
-    .press-link:hover { opacity: 0.7; }
 
     .press-date {
       font-size: 11px;
-      color: var(--gray);
-      margin-top: 16px;
-      letter-spacing: 1px;
+      color: var(--muted);
+      margin-top: 12px;
     }
 
-    /* GUEST LIST */
+    /* ─── GUEST GRID ─── */
     .guest-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 3px;
+      background: var(--rule);
       margin: 40px 0;
     }
 
-    .guest-card {
-      background: var(--dark);
+    .guest-item {
+      background: var(--bg-dark);
       padding: 24px 20px;
-      color: var(--cream);
     }
 
     .guest-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 20px;
-      letter-spacing: 1px;
-      color: var(--cream);
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
       margin-bottom: 4px;
     }
 
-    .guest-title {
+    .guest-role {
       font-size: 11px;
-      color: rgba(250,248,246,0.5);
-      letter-spacing: 1px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.05em;
     }
 
-    /* COST TABLE */
-    .cost-section {
-      margin: 48px 0;
-    }
-
-    .cost-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .cost-table tr {
-      border-bottom: 1px solid var(--light-gray);
-    }
-
-    .cost-table tr:hover { background: rgba(201,169,97,0.03); }
-
-    .cost-table td {
-      padding: 16px 0;
-      font-size: 14px;
-      vertical-align: top;
-    }
-
-    .cost-item { color: var(--dark); font-weight: 500; }
-    .cost-note { font-size: 12px; color: var(--gray); margin-top: 3px; }
-    .cost-amount { text-align: right; font-weight: 600; color: var(--dark); white-space: nowrap; }
-    .cost-tbd { color: var(--gray); font-style: italic; }
-
-    .cost-subtotal td {
-      border-top: 1px solid var(--mid-gray);
-      border-bottom: none;
-      padding-top: 20px;
-      font-weight: 700;
-    }
-
-    .cost-total-row td {
-      border-top: 2px solid var(--dark);
-      border-bottom: none;
-      padding-top: 24px;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 24px;
-      letter-spacing: 1px;
-    }
-
-    /* VALUE STACK */
-    .value-card {
-      background: var(--dark);
-      color: var(--cream);
-      padding: 48px;
+    /* ─── PULL QUOTE ─── */
+    .blockquote {
+      border-left: 2px solid var(--headline);
+      padding: 0 0 0 28px;
       margin: 40px 0;
     }
 
-    .value-card h3 {
-      color: var(--accent);
-      margin-top: 0;
-    }
-
-    .value-card p { color: rgba(250,248,246,0.75); }
-
-    .value-card .value-number {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 72px;
-      letter-spacing: 2px;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .value-points {
-      list-style: none;
-      margin: 24px 0;
-    }
-
-    .value-points li {
-      font-size: 14px;
-      line-height: 1.7;
-      color: rgba(250,248,246,0.75);
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding-left: 20px;
-      position: relative;
-    }
-
-    .value-points li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-    }
-
-    /* PULL QUOTE */
-    .pull-quote {
-      border-left: 3px solid var(--accent);
-      padding: 24px 32px;
-      margin: 48px 0;
-      background: var(--accent-light);
-    }
-
-    .pull-quote p {
+    .blockquote p {
       font-size: 18px;
-      line-height: 1.65;
-      color: var(--dark);
+      font-weight: 300;
+      color: var(--headline);
       font-style: italic;
+      line-height: 1.6;
       margin-bottom: 12px;
     }
 
-    .pull-quote cite {
+    .blockquote cite {
       font-size: 11px;
-      letter-spacing: 2px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--gray);
+      color: var(--muted);
       font-style: normal;
     }
 
-    /* WORLD BUILDING */
-    .world-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      margin: 48px 0;
-      align-items: start;
+    /* ─── DARK BAND ─── */
+    .dark-band {
+      background: var(--bg-dark);
+      color: #fff;
+      padding: 64px 48px;
+      margin: 0 -0px;
     }
 
-    .world-col h3 { margin-top: 0; }
+    .dark-band h2 { color: #fff; }
+    .dark-band p  { color: rgba(255,255,255,0.65); }
+    .dark-band .label { color: rgba(255,255,255,0.35); }
 
-    /* SOCIAL DATA */
-    .social-platform {
-      border: 1px solid var(--light-gray);
-      padding: 32px;
-      margin-bottom: 24px;
+    .dark-band .stat-n { color: #fff; }
+    .dark-band .stat-l { color: rgba(255,255,255,0.4); }
+    .dark-band .stat-item { border-color: rgba(255,255,255,0.1); }
+
+    /* ─── COST TABLE ─── */
+    .cost-section { margin-bottom: 48px; }
+
+    .cost-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
     }
 
-    .platform-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 32px;
-      letter-spacing: 2px;
-      margin-bottom: 24px;
-      color: var(--dark);
+    .cost-tbl tr { border-bottom: 1px solid var(--rule); }
+
+    .cost-tbl td {
+      padding: 14px 0;
+      vertical-align: top;
     }
 
-    .social-metric-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1px;
-      background: var(--light-gray);
-      margin-top: 24px;
+    .cost-tbl td:last-child {
+      text-align: right;
+      white-space: nowrap;
+      font-weight: 600;
+      color: var(--headline);
     }
 
-    .social-metric {
-      background: var(--cream);
-      padding: 20px 16px;
+    .c-item { font-weight: 500; color: var(--headline); }
+    .c-note { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .c-tbd  { font-style: italic; font-weight: 400; color: var(--muted); }
+
+    .cost-tbl .sub-total td {
+      border-top: 1px solid var(--headline);
+      border-bottom: none;
+      padding-top: 16px;
+      font-weight: 700;
+      font-size: 15px;
     }
 
-    .social-metric-value {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 36px;
-      letter-spacing: 1px;
-      color: var(--dark);
-    }
-
-    .social-metric-label {
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-top: 4px;
-    }
-
-    /* PLACEHOLDER */
-    .data-placeholder {
-      background: rgba(201,169,97,0.07);
-      border: 1px dashed var(--accent);
-      padding: 32px;
-      text-align: center;
-      color: var(--gray);
-      font-size: 13px;
-      letter-spacing: 1px;
-      margin: 24px 0;
-    }
-
-    .data-placeholder strong {
-      display: block;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 18px;
-      letter-spacing: 2px;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-
-    /* RELATIONSHIP CARDS */
+    /* ─── RELATIONSHIPS ─── */
     .rel-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      background: var(--rule);
       margin: 40px 0;
     }
 
-    .rel-card {
-      border-top: 3px solid var(--accent);
-      padding: 28px 24px;
-      background: white;
-    }
-
-    .rel-brand {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 24px;
-      letter-spacing: 1px;
-      color: var(--dark);
-      margin-bottom: 12px;
+    .rel-item {
+      background: var(--bg);
+      padding: 32px 28px;
+      border-top: 2px solid var(--headline);
     }
 
     .rel-status {
       font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent);
       font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .rel-brand {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--headline);
       margin-bottom: 12px;
     }
 
     .rel-desc {
       font-size: 13px;
       line-height: 1.65;
-      color: var(--mid-gray);
+      color: var(--muted);
     }
 
-    /* FOOTER */
+    /* ─── PLACEHOLDER ─── */
+    .placeholder {
+      border: 1px dashed var(--rule);
+      padding: 40px;
+      text-align: center;
+      margin: 32px 0;
+    }
+
+    .placeholder strong {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .placeholder span {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ─── VALUE LIST ─── */
+    .value-list {
+      list-style: none;
+      margin: 24px 0;
+    }
+
+    .value-list li {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--body);
+      padding: 14px 0 14px 20px;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+    }
+
+    .value-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+    }
+
+    /* ─── CLOSING DARK ─── */
+    .closing {
+      background: var(--bg-dark);
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 48px;
+    }
+
+    .closing h2 {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .closing p {
+      color: rgba(255,255,255,0.5);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    /* ─── FOOTER ─── */
     footer {
-      background: #000;
-      color: rgba(250,248,246,0.4);
-      padding: 48px 60px;
-      font-size: 12px;
-      letter-spacing: 1px;
+      border-top: 1px solid var(--rule);
+      padding: 28px 48px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid var(--rule);
+      background: var(--bg);
     }
 
-    footer .footer-brand {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 18px;
-      letter-spacing: 3px;
-      color: var(--cream);
+    footer span {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
-    footer span { color: var(--accent); }
-
-    /* RESPONSIVE */
+    /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
       nav { padding: 0 20px; }
       .nav-links { display: none; }
-      .page-hero { padding: 48px 24px; }
-      .page-content { padding: 0 24px; }
-      .hero-meta-grid { grid-template-columns: 1fr; }
-      .stat-grid { grid-template-columns: 1fr 1fr; }
-      .world-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
-      h2 { font-size: 36px; }
+      .cover-page  { flex-direction: column; }
+      .cover-left, .cover-right { width: 100%; }
+      .section-header { flex-direction: column; }
+      .section-header-left, .section-header-right { width: 100%; }
+      .content { padding: 40px 20px; }
+      .press-grid, .rel-grid { grid-template-columns: 1fr; }
+      .tier-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { flex-direction: column; gap: 8px; text-align: center; }
     }
 
-    /* PDF PRINT */
+    /* ─── PRINT ─── */
     @media print {
       nav { display: none; }
       .page { display: block !important; margin-top: 0; page-break-after: always; }
-      .hero-page { display: block !important; min-height: auto; padding: 60px; }
-      footer { display: none; }
+      .cover-page { display: flex !important; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ═══════════════════════════════════════
+     NAV
+═══════════════════════════════════════ -->
 <nav>
-  <a class="logo" onclick="showPage('hero')">KOZO <span>×</span> CART DEPT</a>
+  <span class="nav-logo" onclick="showPage('cover')">Kozo × CART Dept</span>
   <ul class="nav-links">
     <li><a onclick="showPage('overview')" id="nav-overview">Overview</a></li>
-    <li><a onclick="showPage('sponsors')" id="nav-sponsors">Partners</a></li>
-    <li><a onclick="showPage('press')" id="nav-press">Press</a></li>
-    <li><a onclick="showPage('social')" id="nav-social">Social</a></li>
-    <li><a onclick="showPage('world')" id="nav-world">World Building</a></li>
-    <li><a onclick="showPage('costs')" id="nav-costs">Investment</a></li>
-    <li><a onclick="showPage('value')" id="nav-value">Value Created</a></li>
+    <li><a onclick="showPage('partners')" id="nav-partners">Partners</a></li>
+    <li><a onclick="showPage('press')"    id="nav-press">Press</a></li>
+    <li><a onclick="showPage('social')"   id="nav-social">Social</a></li>
+    <li><a onclick="showPage('world')"    id="nav-world">World Building</a></li>
+    <li><a onclick="showPage('costs')"    id="nav-costs">Investment</a></li>
+    <li><a onclick="showPage('value')"    id="nav-value">Value Created</a></li>
   </ul>
 </nav>
 
-<!-- ============ HERO ============ -->
-<div class="hero-page active" id="page-hero">
-  <div class="hero-bg-text">KOZO</div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">No. 9 Agency — Campaign Recap</p>
-    <h1 class="hero-title">Permanent<br><span>Impermanence</span></h1>
-    <p class="hero-subtitle-line">KOZO × CART DEPARTMENT</p>
-    <div class="hero-divider"></div>
-    <p style="color:rgba(250,248,246,0.55); font-size:14px; letter-spacing:1px; line-height:1.8;">
-      A VIP dinner, a painted 1965 Mustang, and a room full of the people<br>who shape contemporary culture. Here is what No. 9 built.
-    </p>
-    <div class="hero-meta-grid">
-      <div class="hero-meta-item">
-        <div class="hero-meta-label">Date</div>
-        <div class="hero-meta-value">May 14, 2026</div>
+<!-- ═══════════════════════════════════════
+     COVER
+═══════════════════════════════════════ -->
+<div class="cover-page active" id="page-cover">
+  <div class="cover-left">
+    <p class="cover-eyebrow">No. 9 Agency — Campaign Recap</p>
+    <h1 class="cover-title">Permanent<br>Impermanence</h1>
+    <p class="cover-subtitle">Kozo × CART Department</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Date</div>
+        <div class="cover-meta-value">May 14, 2026</div>
       </div>
-      <div class="hero-meta-item">
-        <div class="hero-meta-label">Venue</div>
-        <div class="hero-meta-value">Free Parking, West Village</div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Venue</div>
+        <div class="cover-meta-value">Free Parking, West Village</div>
       </div>
-      <div class="hero-meta-item">
-        <div class="hero-meta-label">Presented by</div>
-        <div class="hero-meta-value">CART Department</div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Produced by</div>
+        <div class="cover-meta-value">No. 9 Agency</div>
       </div>
+    </div>
+  </div>
+  <div class="cover-right">
+    <div class="cover-photo" style="background:#1a1a1a;">
+      <img src="https://coolhunting.com/wp-content/uploads/2026/05/BFA_54427_7921303-1024x683.jpg" alt="Kozo Permanent Impermanence" onerror="this.style.display='none'">
+    </div>
+    <div class="cover-photo" style="background:#1a1a1a;">
+      <img src="https://coolhunting.com/wp-content/uploads/2026/05/BFA_54427_7921371-1024x683.jpg" alt="" onerror="this.style.display='none'">
+    </div>
+    <div class="cover-photo" style="background:#222;">
+      <img src="https://coolhunting.com/wp-content/uploads/2026/05/BFA_54427_7921369-1024x683.jpg" alt="" onerror="this.style.display='none'">
+    </div>
+    <div class="cover-photo" style="background:#222;">
+      <img src="https://coolhunting.com/wp-content/uploads/2026/05/BFA_54427_7921308-1024x819.jpg" alt="" onerror="this.style.display='none'">
     </div>
   </div>
 </div>
 
-<!-- ============ OVERVIEW ============ -->
+<!-- ═══════════════════════════════════════
+     01 — OVERVIEW
+═══════════════════════════════════════ -->
 <div class="page" id="page-overview">
-  <div class="page-hero">
-    <p class="page-hero-eyebrow">Section 01</p>
-    <h1>The Event</h1>
-    <p class="page-hero-sub">What we produced, and what it produced.</p>
+  <div class="section-header">
+    <div class="section-header-left">
+      <p class="section-num">01 — Overview</p>
+      <h1 class="section-title">The Event</h1>
+      <p class="section-desc">What we produced, what it generated, and why it matters.</p>
+    </div>
+    <div class="section-header-right">
+      <img src="https://coolhunting.com/wp-content/uploads/2026/05/BFA_54427_7921372-1024x683.jpg" alt="Permanent Impermanence" onerror="this.parentNode.style.background='#111'">
+    </div>
   </div>
-  <div class="page-content">
 
-    <div class="rule-gold"></div>
-    <h2>What Happened</h2>
-    <p>On May 14, 2026, No. 9 Agency co-produced the VIP dinner and press preview for <strong>Kozo's "Permanent Impermanence"</strong> — a solo exhibition presented by CART Department at Free Parking, a 19th-century West Village carriage house. The centerpiece: a 1965 Ford Mustang Coupe covered in 500+ hours of hand-painted and tattooed art, including a full reinterpretation of François Lemoyne's Apotheosis of Hercules from the Palace of Versailles.</p>
-    <p>The exhibition ran May 15–24, 2026. The dinner and VIP preview on May 14 set the cultural context for everything that followed — press, social, and the brand relationships that are now extending into future programming.</p>
+  <div class="content">
+    <p class="label">What Happened</p>
+    <h2>Kozo. 1965 Mustang. 500+ hours. One room that mattered.</h2>
+    <p>On May 14, 2026, No. 9 Agency co-produced the VIP dinner and press preview for <strong>Kozo's "Permanent Impermanence"</strong> — a solo exhibition presented by CART Department at Free Parking, a 19th-century carriage house at 16 Morton Street, West Village. The centerpiece: a 1965 Ford Mustang Coupe covered in 500+ hours of hand-painted art, including a full reinterpretation of François Lemoyne's <em>Apotheosis of Hercules</em> from the Palace of Versailles.</p>
+    <p>The exhibition ran May 15–24, 2026. The dinner and VIP preview on May 14 set the cultural context for everything that followed. Press coverage hit within 72 hours. Brand relationships built through No. 9 are now extending into future programming.</p>
 
     <div class="stat-grid">
       <div class="stat-item">
-        <div class="stat-number gold">$43,500</div>
-        <div class="stat-label">Cash Sponsorships Secured</div>
-        <div class="stat-sub">By No. 9 Agency</div>
+        <div class="stat-n">$43.5K</div>
+        <div class="stat-l">Cash Sponsorships</div>
+        <div class="stat-s">Secured by No. 9 Agency</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">3</div>
-        <div class="stat-label">Major Editorial Placements</div>
-        <div class="stat-sub">Cool Hunting, Whitewall, Surface</div>
+        <div class="stat-n">9</div>
+        <div class="stat-l">Brand Partners</div>
+        <div class="stat-s">Luxury, F&amp;B, lifestyle, automotive</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">9</div>
-        <div class="stat-label">Brand Partners Secured</div>
-        <div class="stat-sub">Across luxury, F&amp;B, lifestyle</div>
+        <div class="stat-n">3</div>
+        <div class="stat-l">Editorial Placements</div>
+        <div class="stat-s">Cool Hunting, Whitewall, Surface</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number gold">500+</div>
-        <div class="stat-label">Hours on the Mustang</div>
-        <div class="stat-sub">Kozo's centerpiece work</div>
+        <div class="stat-n">1M</div>
+        <div class="stat-l">Followers Milestone</div>
+        <div class="stat-s">Reached during campaign window</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">1M</div>
-        <div class="stat-label">Instagram Followers</div>
-        <div class="stat-sub">Milestone reached during campaign</div>
+        <div class="stat-n">8+</div>
+        <div class="stat-l">VIP Art World Names</div>
+        <div class="stat-s">In the room, night of</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">8+</div>
-        <div class="stat-label">VIP Art World Names</div>
-        <div class="stat-sub">In the room, night of</div>
+        <div class="stat-n">500+</div>
+        <div class="stat-l">Hours on the Mustang</div>
+        <div class="stat-s">Kozo's centerpiece work</div>
       </div>
     </div>
 
-    <div class="rule"></div>
+    <hr class="rule">
 
-    <div class="rule-gold"></div>
-    <h2>The Venue</h2>
-    <p><strong>Free Parking, 16 Morton Street, West Village.</strong> CART Department's gallery — a 19th-century carriage house that has hosted cars-as-art programming with artists including Keith Haring and Ai Weiwei. Kozo's presentation is described by Whitewall as "one of the platform's most immersive exhibitions to date."</p>
+    <p class="label">The Venue</p>
+    <h2>Free Parking, 16 Morton Street</h2>
+    <p>CART Department's West Village gallery — a 19th-century carriage house with a lineage that includes exhibitions featuring Keith Haring and Ai Weiwei. Kozo's presentation is described by Whitewall as <strong>"one of the platform's most immersive exhibitions to date."</strong></p>
 
-    <div class="pull-quote">
+    <div class="blockquote">
       <p>"One monumental 1965 Ford Mustang, adorned with more than 500 hours' worth of hand-painted and tattooed art, greets visitors. The exhibition edifies, inspires, and builds synapses between art forms."</p>
-      <cite>Surface Magazine, May 20, 2026</cite>
+      <cite>Surface Magazine — May 20, 2026</cite>
     </div>
 
-    <div class="rule"></div>
+    <hr class="rule">
 
-    <div class="rule-gold"></div>
-    <h2>The Dinner</h2>
-    <p>Chef <strong>Rōze Traore</strong> — known for blending food with storytelling and immersive presentation — curated a multi-course menu that mirrored the exhibition's layered dialogue. HexClad cookware appeared throughout service as part of the event's visual language, turning a brand activation into an editorial moment.</p>
-    <p><strong>Menu highlights included:</strong> Yellowfin Crudo with pickled daikon and nori dust / Branzino with saffron beurre blanc and black truffles / Poached pears with hibiscus and goat cheese.</p>
-    <p>No. 9 Agency brought Chef Roze to this project. Roze accepted a reduced fee to work with us because of the relationship No. 9 has cultivated. HexClad is a direct No. 9 network relationship — that dinner would not have existed in the form it did without us.</p>
+    <p class="label">The Dinner</p>
+    <h2>Chef Rōze Traore. HexClad. A menu that matched the work.</h2>
+    <p>Chef <strong>Rōze Traore</strong> (@rozetraore) — known for blending food with storytelling — curated a multi-course menu in dialogue with the exhibition: Yellowfin Crudo with pickled daikon and nori dust, Branzino with saffron beurre blanc and black truffles, poached pears with hibiscus and goat cheese. HexClad cookware appeared in active service throughout, becoming part of the event's visual language.</p>
+    <p><strong>Chef Roze accepted a below-market fee</strong> to participate in this project. That's a direct result of the relationship No. 9 Agency built and the quality of the room we created. HexClad — the dinner's primary co-presenter — is a direct No. 9 network connection. That dinner doesn't exist in this form without us.</p>
 
   </div>
+  <footer><span>Presented by CART Dept.</span><span>No. 9 Agency — Confidential</span><span>May 2026</span></footer>
 </div>
 
-<!-- ============ SPONSORS ============ -->
-<div class="page" id="page-sponsors">
-  <div class="page-hero">
-    <p class="page-hero-eyebrow">Section 02</p>
-    <h1>Brand Partners</h1>
-    <p class="page-hero-sub">Who sponsored. What they brought. What it's worth.</p>
+<!-- ═══════════════════════════════════════
+     02 — PARTNERS
+═══════════════════════════════════════ -->
+<div class="page" id="page-partners">
+  <div class="section-header">
+    <div class="section-header-left">
+      <p class="section-num">02 — Partners</p>
+      <h1 class="section-title">Brand Partners</h1>
+      <p class="section-desc">Who sponsored, what they brought, and what it's worth.</p>
+    </div>
+    <div class="section-header-right dark-fill">
+      <span>BFA Photography</span>
+    </div>
   </div>
-  <div class="page-content">
 
-    <div class="rule-gold"></div>
-    <h2>Confirmed Sponsors</h2>
-    <p>All partners below were secured by No. 9 Agency through months of outreach, relationship-building, and negotiation starting in January 2026. Media values are based on estimated sponsored post equivalency at each brand's audience size.</p>
+  <div class="content">
+    <p class="label">Confirmed Sponsors</p>
+    <h2>9 partners. Every one secured by No. 9 Agency.</h2>
+    <p>All partners below were identified, pitched, negotiated, and closed by No. 9 Agency through months of outreach beginning January 2026. Media values reflect conservative sponsored-post equivalency at each brand's audience size.</p>
 
-    <table class="sponsor-table">
+    <table class="tbl">
       <thead>
         <tr>
           <th>Brand</th>
           <th>Contribution</th>
-          <th>Type</th>
           <th>IG Handle</th>
-          <th>IG Followers</th>
+          <th>Followers</th>
           <th>Est. Media Value</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>
-            <div class="sponsor-name">Golden Goose</div>
-            <div class="sponsor-handle">Custom Star Collection Tees — exclusive to attendees</div>
+            <div class="td-name">Golden Goose</div>
+            <div class="td-sub">Custom Star Collection tees, hand-finished by GG artisans, exclusively for attendees. Kozo's worker figures + GG star motif.</div>
           </td>
-          <td>In-Kind (Product + Design)</td>
-          <td><span class="badge badge-inkind">In-Kind</span></td>
+          <td>In-Kind — Product + Design Collab</td>
           <td>@goldengoose</td>
           <td>2.0M</td>
-          <td>$35,000+</td>
+          <td><strong>$35,000+</strong></td>
         </tr>
         <tr>
           <td>
-            <div class="sponsor-name">HexClad</div>
-            <div class="sponsor-handle">Full dinner cost + Chef Rōze Traore fees</div>
+            <div class="td-name">HexClad</div>
+            <div class="td-sub">Full dinner production cost + Chef Rōze Traore fees. Cookware integrated into service as visual element.</div>
           </td>
-          <td>In-Kind (Dinner Production)</td>
-          <td><span class="badge badge-inkind">In-Kind</span></td>
+          <td>In-Kind — Dinner + Chef</td>
           <td>@hexclad</td>
           <td>529K</td>
-          <td>$20,000+</td>
+          <td><strong>$20,000+</strong></td>
         </tr>
         <tr>
           <td>
-            <div class="sponsor-name">DYNE by Sarah Ysabel Narici</div>
-            <div class="sponsor-handle">Jewelry display + on-site activation</div>
+            <div class="td-name">DYNE by Sarah Ysabel Narici</div>
+            <div class="td-sub">Jewelry displayed as sculpture alongside Kozo's works throughout the gallery.</div>
           </td>
-          <td>$18,000</td>
-          <td><span class="badge badge-cash">Cash</span></td>
+          <td>$18,000 Cash</td>
           <td>@sarahysabeldyne</td>
           <td>12K+</td>
-          <td>$18,000</td>
+          <td><strong>$18,000</strong></td>
         </tr>
         <tr>
           <td>
-            <div class="sponsor-name">Hennessy Rare Cask</div>
-            <div class="sponsor-handle">Bar activation + opening dinner toast</div>
+            <div class="td-name">Hennessy Rare Cask</div>
+            <div class="td-sub">Bar activation + opening dinner toast moment.</div>
           </td>
-          <td>$10,000</td>
-          <td><span class="badge badge-cash">Cash</span></td>
+          <td>$10,000 Cash</td>
           <td>@hennessy</td>
           <td>1.2M+</td>
-          <td>$25,000+</td>
+          <td><strong>$25,000+</strong></td>
         </tr>
         <tr>
           <td>
-            <div class="sponsor-name">Maison Ruinart</div>
-            <div class="sponsor-handle">Blanc de Blancs service throughout evening</div>
+            <div class="td-name">Maison Ruinart</div>
+            <div class="td-sub">Blanc de Blancs champagne service throughout the evening.</div>
           </td>
-          <td>In-Kind (Champagne)</td>
-          <td><span class="badge badge-inkind">In-Kind</span></td>
+          <td>In-Kind — Champagne</td>
           <td>@ruinart</td>
           <td>200K+</td>
-          <td>$8,000+</td>
+          <td><strong>$8,000+</strong></td>
         </tr>
         <tr>
           <td>
-            <div class="sponsor-name">Illy Coffee</div>
-            <div class="sponsor-handle">Coffee sponsor, breakfast integration</div>
+            <div class="td-name">Illy Coffee</div>
+            <div class="td-sub">Coffee sponsor, press preview and breakfast activation.</div>
           </td>
-          <td>$8,000</td>
-          <td><span class="badge badge-cash">Cash</span></td>
+          <td>$8,000 Cash</td>
           <td>@illy_coffee</td>
           <td>249K</td>
-          <td>$8,000</td>
+          <td><strong>$8,000</strong></td>
         </tr>
         <tr>
           <td>
-            <div class="sponsor-name">FLYBLACK</div>
-            <div class="sponsor-handle">Private aviation credits in VIP gift bags</div>
+            <div class="td-name">FLYBLACK</div>
+            <div class="td-sub">Private aviation credits in every VIP gift bag. Now in conversation for Basel programming.</div>
           </td>
-          <td>$5,000</td>
-          <td><span class="badge badge-cash">Cash</span></td>
+          <td>$5,000 Cash</td>
           <td>@flyblackjets</td>
           <td>16K</td>
-          <td>$5,000</td>
+          <td><strong>$5,000</strong></td>
         </tr>
         <tr>
           <td>
-            <div class="sponsor-name">Pure Protein</div>
-            <div class="sponsor-handle">Snack activation / gifting</div>
+            <div class="td-name">Pure Protein</div>
+            <div class="td-sub">Snack activation and gifting.</div>
           </td>
-          <td>$2,500</td>
-          <td><span class="badge badge-cash">Cash</span></td>
+          <td>$2,500 Cash</td>
           <td>@officialpureprotein</td>
           <td>39.8K</td>
-          <td>$2,500</td>
+          <td><strong>$2,500</strong></td>
         </tr>
         <tr>
           <td>
-            <div class="sponsor-name">Red Hook Detail Co.</div>
-            <div class="sponsor-handle">Automotive studio where Mustang was painted</div>
+            <div class="td-name">Red Hook Detail Co.</div>
+            <div class="td-sub">Brooklyn automotive studio where the Mustang was painted. Studio access and partnership.</div>
           </td>
-          <td>Studio Access + Partnership</td>
-          <td><span class="badge badge-inkind">In-Kind</span></td>
+          <td>In-Kind — Studio Access</td>
           <td>@redhookdetail</td>
           <td>7.5K</td>
-          <td>$5,000+</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="sponsor-name">No. 9 Agency (Mike)</div>
-            <div class="sponsor-handle">Production costs, deposits, labor, operations</div>
-          </td>
-          <td>$15,000</td>
-          <td><span class="badge badge-nofee">Fronted</span></td>
-          <td>—</td>
-          <td>—</td>
-          <td>—</td>
+          <td><strong>$5,000+</strong></td>
         </tr>
       </tbody>
       <tfoot>
-        <tr class="total-row">
-          <td colspan="2">Total Partner Value (Cash + In-Kind)</td>
-          <td colspan="4" style="text-align:right; color: var(--accent);">$140,500+</td>
+        <tr>
+          <td colspan="4">Total Partner Value (Cash + In-Kind)</td>
+          <td><strong>$126,500+</strong></td>
         </tr>
       </tfoot>
     </table>
 
-    <p style="font-size:12px; color:var(--gray); margin-top: -24px;">*Media values based on equivalent sponsored post rates at each brand's follower count. In-kind valuations are conservative floor estimates. Golden Goose tee production + design is valued at $35K minimum given their typical collab pricing.</p>
+    <hr class="rule">
 
-    <div class="rule"></div>
+    <p class="label">Golden Goose</p>
+    <h2>A collaboration, not a placement.</h2>
 
-    <div class="rule-gold"></div>
-    <h2>The Golden Goose Partnership</h2>
-
-    <div class="pull-quote">
+    <div class="blockquote">
       <p>"Golden Goose created custom white Star Collection T-shirts exclusively for attendees. Designed in dialogue with the exhibition, the shirts featured Kozo's recurring worker figures suspended from the brand's iconic star motif, alongside hand-finished details by Golden Goose artisans."</p>
-      <cite>Whitewall, May 19, 2026</cite>
+      <cite>Whitewall — May 19, 2026</cite>
     </div>
 
-    <p>This is not a simple brand placement. Golden Goose — a 2M-follower global luxury sneaker and lifestyle brand — designed a <strong>bespoke, hand-finished, limited-run collaboration</strong> exclusively for this event. Their artisans participated in the creation. The garments are collectible by design.</p>
-    <p><strong>This collaboration would not exist without No. 9.</strong> The Golden Goose relationship was initiated, nurtured, and structured through months of conversations managed by No. 9 Agency. They invested in the experience and the cultural opportunity — not just the artist. That distinction matters. It means they're building a world with Kozo, not buying a placement in someone else's.</p>
+    <p>This is not a logo placement. Golden Goose brought their <strong>artisans</strong> to this project. The shirts were created in dialogue with the exhibition's conceptual framework. They are collectible objects. This is a brand investing in a creative world — not buying space in someone else's.</p>
+    <p><strong>This partnership would not exist without No. 9 Agency.</strong> The Golden Goose relationship was initiated, cultivated, and structured through months of No. 9-led conversations with Leigh Murphy and her team. It is the clearest single proof of what No. 9 brought to this project beyond cash.</p>
 
   </div>
+  <footer><span>Presented by CART Dept.</span><span>No. 9 Agency — Confidential</span><span>May 2026</span></footer>
 </div>
 
-<!-- ============ PRESS ============ -->
+<!-- ═══════════════════════════════════════
+     03 — PRESS
+═══════════════════════════════════════ -->
 <div class="page" id="page-press">
-  <div class="page-hero">
-    <p class="page-hero-eyebrow">Section 03</p>
-    <h1>Press Recap</h1>
-    <p class="page-hero-sub">Three placements. All editorial. All earned.</p>
+  <div class="section-header">
+    <div class="section-header-left">
+      <p class="section-num">03 — Press</p>
+      <h1 class="section-title">Press Recap</h1>
+      <p class="section-desc">Three placements in three days. All editorial, all earned.</p>
+    </div>
+    <div class="section-header-right dark-fill">
+      <span>Cool Hunting / Whitewall / Surface</span>
+    </div>
   </div>
-  <div class="page-content">
 
-    <div class="rule-gold"></div>
-    <h2>Coverage to Date</h2>
-    <p>Every placement below is editorial — not paid, not sponsored content. These are writers at major culture publications who chose to cover the work. That is the result of a PR strategy and relationships No. 9 Agency helped build and activate.</p>
+  <div class="content">
+    <p class="label">Coverage</p>
+    <h2>Cool Hunting. Whitewall. Surface. One week.</h2>
+    <p>None of these are paid placements or sponsored content. These are editors and writers at the most culturally relevant design, art, and lifestyle publications choosing to cover Kozo's work. That is the output of a long-term press strategy, existing relationships, and the caliber of experience No. 9 helped build.</p>
+    <p><strong>No. 9 Agency is named by name in the Cool Hunting article</strong> as one of the exhibition's supporting partners. That is editorial recognition of our role — not something we asked for or paid for.</p>
 
     <div class="press-grid">
       <div class="press-card">
         <div class="press-pub">Cool Hunting</div>
-        <div class="press-headline">Permanent Impermanence: Kozo Stages a Collision of Versailles, Tattoo Craft and American Muscle</div>
-        <p class="press-excerpt">Full editorial piece covering the exhibition, Kozo's practice, the Mustang, and the event's cultural positioning. Cool Hunting explicitly credits "HexClad, Hennessy, Maison Ruinart & Illycaffè, Golden Goose, FLYBLACK, DYNE by Sarah Ysabel Narici, Red Hook Detail Co. and <strong>No. 9 Agency</strong>" in the article body.</p>
-        <a href="https://coolhunting.com/culture/permanent-impermanence-kozo-stages-a-collision-of-versailles-tattoo-craft-and-american-muscle/" target="_blank" class="press-link">Read Article →</a>
-        <div class="press-date">Published May 17, 2026 · BFA Photography</div>
+        <div class="press-hed">Permanent Impermanence: Kozo Stages a Collision of Versailles, Tattoo Craft and American Muscle</div>
+        <p class="press-body">Full editorial piece on the exhibition, Kozo's practice, and the Mustang. Cool Hunting explicitly credits <strong>No. 9 Agency</strong> in the article body alongside HexClad, Hennessy, Golden Goose, and FLYBLACK. BFA photography throughout.</p>
+        <a href="https://coolhunting.com/culture/permanent-impermanence-kozo-stages-a-collision-of-versailles-tattoo-craft-and-american-muscle/" target="_blank" class="press-link">Read →</a>
+        <p class="press-date">May 17, 2026</p>
       </div>
       <div class="press-card">
         <div class="press-pub">Whitewall</div>
-        <div class="press-headline">Kozo Reimagines Versailles on a Vintage Ford Mustang in New York's West Village</div>
-        <p class="press-excerpt">Whitewall named the dinner guests by name — Larry Warsh, Mickalene Thomas, Futura, Eric Haze, Quil Lemons, Brie Welch, Latham Thomas — contextualizing the event within CART Department's lineage of Haring and Ai Weiwei. Calls Kozo's show "one of the platform's most immersive exhibitions to date."</p>
-        <a href="https://whitewall.art/art/kozo-permanent-impermanence/" target="_blank" class="press-link">Read Article →</a>
-        <div class="press-date">Published May 19, 2026 · By Eliza Jordan</div>
+        <div class="press-hed">Kozo Reimagines Versailles on a Vintage Ford Mustang in New York's West Village</div>
+        <p class="press-body">Named the dinner guests: <strong>Larry Warsh, Mickalene Thomas, Futura, Eric Haze, Quil Lemons, Brie Welch, Latham Thomas.</strong> Positioned the show in CART Dept's lineage with Haring and Ai Weiwei. Described as "one of the platform's most immersive exhibitions to date."</p>
+        <a href="https://whitewall.art/art/kozo-permanent-impermanence/" target="_blank" class="press-link">Read →</a>
+        <p class="press-date">May 19, 2026 — Eliza Jordan</p>
       </div>
       <div class="press-card">
         <div class="press-pub">Surface Magazine</div>
-        <div class="press-headline">Surrealist Collisions and an Automotive Canvas Steer Kozo's "Permanent Impermanence"</div>
-        <p class="press-excerpt">Surface conducted a full interview with Kozo at the opening dinner, with guests including Futura, Mickalene Thomas, Quil Lemons, and Gabriella Khalil present. The piece goes deep on Kozo's development, his practice, and the exhibition's conceptual architecture.</p>
-        <a href="https://www.surfacemag.com/articles/kozo-permanent-impermanence-cart-department/" target="_blank" class="press-link">Read Article →</a>
-        <div class="press-date">Published May 20, 2026</div>
+        <div class="press-hed">Surrealist Collisions and an Automotive Canvas Steer Kozo's "Permanent Impermanence"</div>
+        <p class="press-body">Surface conducted a full interview with Kozo at the opening dinner — with Futura, Mickalene Thomas, Quil Lemons, and Gabriella Khalil present. The deepest editorial piece: covers Kozo's full artistic development, the Venice Biennale, and the conceptual architecture of the show.</p>
+        <a href="https://www.surfacemag.com/articles/kozo-permanent-impermanence-cart-department/" target="_blank" class="press-link">Read →</a>
+        <p class="press-date">May 20, 2026</p>
       </div>
     </div>
 
     <div class="stat-grid">
       <div class="stat-item">
-        <div class="stat-number gold">3</div>
-        <div class="stat-label">Editorial Placements</div>
-        <div class="stat-sub">All earned, not paid</div>
+        <div class="stat-n">3</div>
+        <div class="stat-l">Editorial Placements</div>
+        <div class="stat-s">All earned, none paid</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">~2.5M</div>
-        <div class="stat-label">Combined Monthly Reach</div>
-        <div class="stat-sub">Cool Hunting + Surface + Whitewall</div>
+        <div class="stat-n">~2.5M</div>
+        <div class="stat-l">Combined Monthly Reach</div>
+        <div class="stat-s">CH + Surface + Whitewall</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number gold">$75K+</div>
-        <div class="stat-label">Est. Earned Media Value</div>
-        <div class="stat-sub">At advertising rate equivalency</div>
+        <div class="stat-n">$75K+</div>
+        <div class="stat-l">Est. Earned Media Value</div>
+        <div class="stat-s">At advertising rate equivalency</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-n">1</div>
+        <div class="stat-l">Agency Named in Print</div>
+        <div class="stat-s">No. 9 credited in Cool Hunting</div>
       </div>
     </div>
 
-    <div class="rule"></div>
+    <hr class="rule">
 
     <h3>Active Press Conversations</h3>
-    <div class="data-placeholder">
+    <div class="placeholder">
       <strong>Pending from PR Team</strong>
-      Active conversations + pipeline press to be added here. Send current PR outreach list and we will populate this section.
+      <span>Active outreach pipeline and in-progress conversations to be added here.</span>
     </div>
 
-    <div class="rule"></div>
-
-    <h3>Social Coverage</h3>
-    <div class="data-placeholder">
-      <strong>Complex, Cool Hunting Social, Surface Newsletter</strong>
-      Links and metrics to be added once confirmed. Send Complex coverage URL and newsletter stats when available.
+    <h3>Social + Newsletter Coverage</h3>
+    <div class="placeholder">
+      <strong>Complex Social / Cool Hunting Newsletter / Surface Newsletter</strong>
+      <span>Links and metrics to be added. Send Complex coverage URL and newsletter stats when available.</span>
     </div>
 
   </div>
+  <footer><span>Presented by CART Dept.</span><span>No. 9 Agency — Confidential</span><span>May 2026</span></footer>
 </div>
 
-<!-- ============ SOCIAL ============ -->
+<!-- ═══════════════════════════════════════
+     04 — SOCIAL
+═══════════════════════════════════════ -->
 <div class="page" id="page-social">
-  <div class="page-hero">
-    <p class="page-hero-eyebrow">Section 04</p>
-    <h1>Social Coverage</h1>
-    <p class="page-hero-sub">How we started. What we built. Where he landed.</p>
-  </div>
-  <div class="page-content">
-
-    <div class="rule-gold"></div>
-    <h2>The Growth Story</h2>
-    <p>No. 9 Agency managed Kozo's social strategy throughout the lead-up to this event. The goal was never just numbers — it was positioning. Building a feed that said <em>this is a serious artist</em> so that when the dinner happened, the room made sense, and when the press came, the story was already there.</p>
-    <p>The result: <strong>Kozo returned to 1 million Instagram followers</strong> during this campaign window. That milestone is not incidental — it is the direct output of a content strategy, a shoot cadence, and a positioning built from the ground up by No. 9.</p>
-
-    <div class="data-placeholder">
-      <strong>Screenshots Incoming</strong>
-      Mike is sending before/after follower data and analytics screenshots. This section will be populated with actual numbers, growth charts, and engagement comparisons.
+  <div class="section-header">
+    <div class="section-header-left">
+      <p class="section-num">04 — Social</p>
+      <h1 class="section-title">Social Coverage</h1>
+      <p class="section-desc">How we started. What we built. Where he landed.</p>
     </div>
+    <div class="section-header-right dark-fill">
+      <span>@kozo.art · Instagram</span>
+    </div>
+  </div>
 
-    <div class="social-platform">
-      <div class="platform-name">Instagram — @kozo.art</div>
-      <p style="font-size:14px; color:var(--gray);">Kozo's primary platform. Strategy managed by No. 9 Agency with content direction from JJ (Carte Blanche) and production oversight from Kiana Anvaripour.</p>
-      <div class="social-metric-row">
-        <div class="social-metric">
-          <div class="social-metric-value" style="color:var(--gray)">TBD</div>
-          <div class="social-metric-label">Followers — Start</div>
+  <div class="content">
+    <p class="label">The Story</p>
+    <h2>Back to 1 million. By design, not accident.</h2>
+    <p>No. 9 Agency managed Kozo's social strategy throughout the lead-up to this event. The work started in January — two planned shoot days per month, one painting, one tattooing. Process-first philosophy. Broadcast channel for community engagement. A systematic rebuild of Kozo's digital identity ahead of the biggest show of his career.</p>
+    <p>The result: <strong>Kozo returned to 1 million Instagram followers</strong> during this campaign window. Every brand, press contact, and art-world name who walked through Free Parking on May 14 had already seen the work. That's not coincidence.</p>
+
+    <div class="split">
+      <div class="split-col">
+        <p class="label">Instagram — @kozo.art</p>
+        <h3 style="margin-top:8px">Followers</h3>
+        <div class="stat-grid" style="margin:0; border:none;">
+          <div class="stat-item" style="border:1px solid var(--rule);">
+            <div class="stat-n" style="color:var(--muted); font-size:32px;">TBD</div>
+            <div class="stat-l">Start of Campaign</div>
+          </div>
+          <div class="stat-item" style="border:1px solid var(--rule);">
+            <div class="stat-n" style="font-size:32px;">1M+</div>
+            <div class="stat-l">At Event</div>
+          </div>
         </div>
-        <div class="social-metric">
-          <div class="social-metric-value" style="color:var(--accent)">1M+</div>
-          <div class="social-metric-label">Followers — Event</div>
-        </div>
-        <div class="social-metric">
-          <div class="social-metric-value" style="color:var(--gray)">TBD</div>
-          <div class="social-metric-label">Views / Reach</div>
+      </div>
+      <div class="split-col">
+        <p class="label">Views &amp; Reach</p>
+        <div class="placeholder" style="margin-top:16px;">
+          <strong>Screenshots Incoming</strong>
+          <span>Before/after analytics to be inserted here.</span>
         </div>
       </div>
     </div>
 
-    <div class="rule"></div>
+    <hr class="rule">
 
-    <h3>Content Strategy Executed</h3>
-    <p>Two-day shoot cadence monthly. One day painting, one day tattooing. Process-first content philosophy: let the work speak, show the hand, document the method. Broadcast channel for community engagement. This was not content for content's sake — it was a systematic rebuild of Kozo's digital identity ahead of the biggest show of his career.</p>
+    <p class="label">Strategy Executed</p>
+    <h2>Content built for positioning, not volume.</h2>
+    <p>Two shoot days monthly. One painting session, one tattooing session. Process-forward content that showed the hand, the needle, the mark. Broadcast channel for audience engagement. Community management. The brief was simple: make a feed that made the room at Free Parking feel inevitable.</p>
 
-    <div class="rule"></div>
+    <hr class="rule">
 
-    <h3>Sponsor Social Activity</h3>
-    <p>All confirmed sponsors posted around the event. The combined audience reach of partners at the dinner table exceeded 5 million followers. This is organic distribution — not paid amplification.</p>
-
-    <div class="data-placeholder">
+    <h3>Partner Social Activity</h3>
+    <p>The combined Instagram audience of confirmed partners at the dinner exceeded 5 million followers. All organic. All posting around the event in the days that followed.</p>
+    <div class="placeholder">
       <strong>Partner Post Roundup</strong>
-      Links to Golden Goose, HexClad, Hennessy, DYNE, Whitewall, Surface, and Cool Hunting social posts to be compiled here.
+      <span>Links to GG, HexClad, Hennessy, DYNE, Whitewall, Surface, and Cool Hunting social posts to be compiled here.</span>
     </div>
 
   </div>
+  <footer><span>Presented by CART Dept.</span><span>No. 9 Agency — Confidential</span><span>May 2026</span></footer>
 </div>
 
-<!-- ============ WORLD BUILDING ============ -->
+<!-- ═══════════════════════════════════════
+     05 — WORLD BUILDING
+═══════════════════════════════════════ -->
 <div class="page" id="page-world">
-  <div class="page-hero">
-    <p class="page-hero-eyebrow">Section 05</p>
-    <h1>World Building</h1>
-    <p class="page-hero-sub">What No. 9 built. Why it matters more than what was sold.</p>
+  <div class="section-header">
+    <div class="section-header-left">
+      <p class="section-num">05 — World Building</p>
+      <h1 class="section-title">World Building</h1>
+      <p class="section-desc">The room we built. The relationships it created. Why the value isn't what was sold.</p>
+    </div>
+    <div class="section-header-right dark-fill">
+      <span>Futura. Mickalene Thomas. Eric Haze.</span>
+    </div>
   </div>
-  <div class="page-content">
 
-    <div class="rule-gold"></div>
-    <h2>The Room We Built</h2>
-    <p>A dinner is only as valuable as the people in it. The guest list at "Permanent Impermanence" was not an accident — it was architecture. No. 9 Agency shaped the cultural positioning of this event so that the right people wanted to be there.</p>
+  <div class="content">
+    <p class="label">The Room</p>
+    <h2>A room full of people who don't show up unless it's real.</h2>
+    <p>The guest list at "Permanent Impermanence" was architecture. It was built deliberately — by No. 9 Agency shaping the cultural positioning of this event so that the right people wanted to be there. The presence of Futura, Mickalene Thomas, and Eric Haze is not a coincidence. It is a signal. A signal that takes months to earn.</p>
 
     <div class="guest-grid">
-      <div class="guest-card">
+      <div class="guest-item">
         <div class="guest-name">Larry Warsh</div>
-        <div class="guest-title">Collector & Founder, CART Department</div>
+        <div class="guest-role">Collector / Founder, CART Department</div>
       </div>
-      <div class="guest-card">
+      <div class="guest-item">
         <div class="guest-name">Mickalene Thomas</div>
-        <div class="guest-title">Artist</div>
+        <div class="guest-role">Artist</div>
       </div>
-      <div class="guest-card">
+      <div class="guest-item">
         <div class="guest-name">Futura</div>
-        <div class="guest-title">Artist</div>
+        <div class="guest-role">Artist</div>
       </div>
-      <div class="guest-card">
+      <div class="guest-item">
         <div class="guest-name">Eric Haze</div>
-        <div class="guest-title">Artist / Designer</div>
+        <div class="guest-role">Artist / Designer</div>
       </div>
-      <div class="guest-card">
+      <div class="guest-item">
         <div class="guest-name">Quil Lemons</div>
-        <div class="guest-title">Photographer</div>
+        <div class="guest-role">Photographer</div>
       </div>
-      <div class="guest-card">
+      <div class="guest-item">
         <div class="guest-name">Gabriella Khalil</div>
-        <div class="guest-title">Creative Director</div>
+        <div class="guest-role">Creative Director</div>
       </div>
-      <div class="guest-card">
+      <div class="guest-item">
         <div class="guest-name">Latham Thomas</div>
-        <div class="guest-title">Wellness Entrepreneur / Author</div>
+        <div class="guest-role">Author / Entrepreneur</div>
       </div>
-      <div class="guest-card">
+      <div class="guest-item">
         <div class="guest-name">Brie Welch</div>
-        <div class="guest-title">Creative</div>
+        <div class="guest-role">Creative</div>
       </div>
-      <div class="guest-card" style="background: rgba(201,169,97,0.15); border: 1px dashed var(--accent);">
-        <div class="guest-name" style="color:var(--gray)">+ Full List</div>
-        <div class="guest-title" style="color:var(--gray)">Complete guest list to be added</div>
-      </div>
-    </div>
-
-    <div class="rule"></div>
-
-    <div class="rule-gold"></div>
-    <h2>They Invested in the Experience</h2>
-
-    <div class="world-grid">
-      <div class="world-col">
-        <div class="rule-gold"></div>
-        <h3>Not Just a Sponsorship</h3>
-        <p>Golden Goose didn't buy a logo placement. They brought artisans. They designed custom tees with Kozo's figures on their star. They became part of the creative output of the show.</p>
-        <p>HexClad didn't just write a check for the dinner. Their cookware became a visual element of the dining experience. They co-presented the evening alongside Daniel Winer and Kozo.</p>
-        <p>DYNE's jewelry was displayed as sculpture alongside Kozo's work — not in a gift bag, not on a table. As art.</p>
-        <p>This level of integration is not available on any media plan. It requires trust, creative relationships, and someone who can translate brand desire into cultural participation. That is what No. 9 Agency does.</p>
-      </div>
-      <div class="world-col">
-        <div class="rule-gold"></div>
-        <h3>World Building, Not Brand Building</h3>
-        <p>The value of this event is not what was sold. It is what was created: a world that now has gravity. A room that Futura and Mickalene Thomas chose to spend their evening in. A Mustang that will be written about for years. A chef who lowered her rate because the project was worth it.</p>
-        <p>Every brand in that room is now associated with an exhibition that landed in Surface, Whitewall, and Cool Hunting in the same week. That association doesn't expire when the show closes.</p>
-        <p>And every relationship No. 9 built to get those brands in that room — FlyBlack's interest in Basel, the Delano Hotel commission, the Golden Goose collab — that is the compounding return on what happened May 14.</p>
+      <div class="guest-item" style="background:var(--bg); border:1px dashed var(--rule); display:flex; align-items:center; justify-content:center;">
+        <span style="font-size:11px; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">+ Full List Incoming</span>
       </div>
     </div>
 
-    <div class="pull-quote">
+    <hr class="rule">
+
+    <p class="label">The Investment</p>
+    <h2>They invested in the experience. Not just the artist.</h2>
+
+    <div class="split">
+      <div class="split-col">
+        <p class="label">Not a Transaction</p>
+        <p>Golden Goose brought artisans. HexClad co-presented the dinner. DYNE's jewelry was displayed as sculpture. Hennessy's Rare Cask appeared alongside the art. These are not brand placements — they are creative participations.</p>
+        <p>This level of integration is not available on any media plan. It requires relationships, trust, and someone who can translate brand desire into cultural participation. That is what No. 9 Agency does.</p>
+      </div>
+      <div class="split-col">
+        <p class="label">The Compounding Return</p>
+        <p>The value of this event is not what was sold. It is what was created: a world with cultural gravity. A room that Futura chose to spend his evening in. A Mustang that landed in Surface, Whitewall, and Cool Hunting in one week. Every brand in that room is now associated with that moment. That association doesn't expire.</p>
+        <p>And every relationship No. 9 built — FLYBLACK's Basel interest, the Delano Hotel commission, the Golden Goose collab — that is the compound return on May 14.</p>
+      </div>
+    </div>
+
+    <div class="blockquote">
       <p>"Following projects involving artists like Keith Haring and Ai Weiwei, Kozo's presentation marks one of the platform's most immersive exhibitions to date."</p>
-      <cite>Whitewall Art, May 19, 2026</cite>
+      <cite>Whitewall Art — May 19, 2026</cite>
     </div>
 
-    <div class="rule"></div>
+    <hr class="rule">
 
-    <div class="rule-gold"></div>
-    <h2>Relationships Generated</h2>
-    <p>These are not hypothetical futures. These are active conversations and outcomes that exist because of what No. 9 built.</p>
+    <p class="label">Ongoing Relationships</p>
+    <h2>What this event generated beyond the closing night.</h2>
 
     <div class="rel-grid">
-      <div class="rel-card">
-        <div class="rel-status">Active Conversation</div>
+      <div class="rel-item">
+        <div class="rel-status">Active</div>
         <div class="rel-brand">Golden Goose</div>
-        <div class="rel-desc">The custom Star Collection tee collaboration at the show is a proof of concept. Golden Goose invested their artisans in this project. That relationship now exists and can be extended — to future shows, to Art Basel, to international programming.</div>
+        <div class="rel-desc">The custom tee collab at the show is a proof of concept. GG invested their artisans. That relationship now exists and can extend to Basel, international programming, and future shows.</div>
       </div>
-      <div class="rel-card">
-        <div class="rel-status">Post-Event Interest</div>
+      <div class="rel-item">
+        <div class="rel-status">In Conversation</div>
         <div class="rel-brand">FLYBLACK</div>
-        <div class="rel-desc">FlyBlack expressed direct interest in Art Basel Miami programming and ongoing CART Dept collaboration after participating in this event. They were not in the room by chance — No. 9 brought them in and built that relationship.</div>
+        <div class="rel-desc">Expressed direct interest in Art Basel Miami programming and ongoing CART Dept collaboration after participating here. No. 9 brought them in and built that relationship from scratch.</div>
       </div>
-      <div class="rel-card">
-        <div class="rel-status">Opportunity Generated</div>
+      <div class="rel-item">
+        <div class="rel-status">Commission</div>
         <div class="rel-brand">Delano Hotel Miami</div>
-        <div class="rel-desc">A commission emerged from the relationships built through this event. The Delano is not a cold lead — it is a direct output of the cultural credibility established at Free Parking on May 14.</div>
+        <div class="rel-desc">A commission emerged directly from the relationships and credibility built at Free Parking on May 14. Not a cold inquiry — a warm outcome of cultural positioning.</div>
       </div>
-      <div class="rel-card">
-        <div class="rel-status">Foundational Relationship</div>
+      <div class="rel-item">
+        <div class="rel-status">Foundational</div>
         <div class="rel-brand">Maison Margiela</div>
-        <div class="rel-desc">Kozo's 2024 Art Basel Miami collaboration with Maison Margiela — tattooing bags, Tabi boots, and sneakers — is part of the lineage that made May 14 possible. No. 9 operates in the same network.</div>
+        <div class="rel-desc">Kozo's 2024 Art Basel Miami collab with Margiela — tattooing bags, Tabi boots, and sneakers — is part of the lineage that made May 14 possible. No. 9 operates in the same network.</div>
       </div>
-      <div class="rel-card">
+      <div class="rel-item">
         <div class="rel-status">Active</div>
         <div class="rel-brand">HexClad</div>
-        <div class="rel-desc">HexClad co-hosted the dinner, is a direct No. 9 network relationship, and their presence in the press coverage amplifies their association with serious contemporary art — something their competitors cannot replicate.</div>
+        <div class="rel-desc">A direct No. 9 network relationship. Their presence in all three press pieces gives them an association with serious contemporary art their competitors cannot buy.</div>
       </div>
-      <div class="rel-card">
-        <div class="rel-status">Active</div>
+      <div class="rel-item">
+        <div class="rel-status">Partnership</div>
         <div class="rel-brand">Chef Rōze Traore</div>
-        <div class="rel-desc">Rōze accepted a lower fee to participate because of the relationship No. 9 brought and the quality of the room. That trust is now a working creative partnership available for future programming.</div>
+        <div class="rel-desc">Accepted a below-market fee because of the relationship No. 9 brought and the caliber of the room. A working creative partnership now available for future programming.</div>
       </div>
     </div>
 
   </div>
+  <footer><span>Presented by CART Dept.</span><span>No. 9 Agency — Confidential</span><span>May 2026</span></footer>
 </div>
 
-<!-- ============ COSTS ============ -->
+<!-- ═══════════════════════════════════════
+     06 — INVESTMENT
+═══════════════════════════════════════ -->
 <div class="page" id="page-costs">
-  <div class="page-hero">
-    <p class="page-hero-eyebrow">Section 06</p>
-    <h1>Investment &amp; Costs</h1>
-    <p class="page-hero-sub">Every dollar Mike fronted. Every hour No. 9 worked. On record.</p>
+  <div class="section-header">
+    <div class="section-header-left">
+      <p class="section-num">06 — Investment</p>
+      <h1 class="section-title">Investment &amp; Costs</h1>
+      <p class="section-desc">Every dollar Mike fronted. Every hour No. 9 worked. On record.</p>
+    </div>
+    <div class="section-header-right dark-fill">
+      <span>Out-of-Pocket · Unretained · Fronted</span>
+    </div>
   </div>
-  <div class="page-content">
 
-    <div class="rule-gold"></div>
-    <h2>Out-of-Pocket Costs</h2>
-    <p>The following represents confirmed out-of-pocket expenditures by Mike Tommasiello / No. 9 Agency in the production and execution of the Kozo x CART Dept event. These costs were fronted without a retainer, advance, or formal compensation agreement in place.</p>
+  <div class="content">
+    <p class="label">Context</p>
+    <h2>No retainer. No advance. Everything fronted.</h2>
+    <p>All costs below were incurred by Mike Tommasiello / No. 9 Agency without a retainer, advance, or compensation agreement in place. No. 9 operated in a fully speculative capacity from January through May 2026.</p>
 
     <div class="cost-section">
       <h3>Transportation</h3>
-      <table class="cost-table">
+      <table class="cost-tbl">
         <tbody>
           <tr>
             <td>
-              <div class="cost-item">Mike — Uber to 16 Morton (Apr 23)</div>
-              <div class="cost-note">420 Kent Ave Brooklyn → 16 Morton St, NYC · Site visit</div>
+              <div class="c-item">Mike — Uber, Apr 23 (site visit)</div>
+              <div class="c-note">420 Kent Ave Brooklyn → 16 Morton St, NYC</div>
             </td>
-            <td class="cost-amount">$54.64</td>
+            <td>$54.64</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">Mike — Uber to 16 Morton (May 11)</div>
-              <div class="cost-note">420 Kent Ave Brooklyn → 16 Morton St, NYC · Pre-event setup</div>
+              <div class="c-item">Mike — Uber, May 11 (pre-event setup)</div>
+              <div class="c-note">420 Kent Ave Brooklyn → 16 Morton St, NYC</div>
             </td>
-            <td class="cost-amount">$38.24</td>
+            <td>$38.24</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">Mike — Uber, JFK → 16 Morton (May 18)</div>
-              <div class="cost-note">Return from Venice · Post-event follow-up at venue</div>
+              <div class="c-item">Mike — Uber, May 18 (post-event)</div>
+              <div class="c-note">JFK → 16 Morton St, NYC. Return from Venice.</div>
             </td>
-            <td class="cost-amount">$301.18</td>
+            <td>$301.18</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">Mike — Additional site visits / sponsor meetings (Jan–Apr)</div>
-              <div class="cost-note">Ongoing trips to Industry City + venue. Receipts available on request.</div>
+              <div class="c-item">Mike — Site visits to Industry City, additional sponsor meetings (Jan–Apr)</div>
+              <div class="c-note">Ongoing trips. Receipts available on request.</div>
             </td>
-            <td class="cost-amount cost-tbd">TBC</td>
+            <td class="c-tbd">TBC</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">Kiana — EWR → NYC arrival (May 12)</div>
-              <div class="cost-note">Receipt forwarded to mike@no9agency.com</div>
+              <div class="c-item">Kiana — EWR → NYC arrival, May 12</div>
+              <div class="c-note">Forwarded to mike@no9agency.com</div>
             </td>
-            <td class="cost-amount">$79.95</td>
+            <td>$79.95</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">Kiana — NYC trip (May 12, evening)</div>
-              <div class="cost-note">Receipt forwarded to mike@no9agency.com</div>
+              <div class="c-item">Kiana — NYC trip, May 12 evening</div>
+              <div class="c-note">Forwarded to mike@no9agency.com</div>
             </td>
-            <td class="cost-amount">$44.96</td>
+            <td>$44.96</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">Kiana — JFK departure (May 15)</div>
-              <div class="cost-note">Receipt forwarded to mike@no9agency.com</div>
+              <div class="c-item">Kiana — JFK departure, May 15</div>
+              <div class="c-note">Forwarded to mike@no9agency.com</div>
             </td>
-            <td class="cost-amount">$142.52</td>
+            <td>$142.52</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">Kiana — Flight NYC and back + Empower expenses</div>
-              <div class="cost-note">Full trip cost forwarded to Mike</div>
+              <div class="c-item">Kiana — Full flight NYC round-trip + Empower expenses</div>
+              <div class="c-note">Forwarded to Mike</div>
             </td>
-            <td class="cost-amount cost-tbd">TBC</td>
+            <td class="c-tbd">TBC</td>
           </tr>
         </tbody>
         <tfoot>
-          <tr class="cost-subtotal">
-            <td><strong>Transportation Subtotal (confirmed)</strong></td>
-            <td class="cost-amount"><strong>$661.49+</strong></td>
+          <tr class="sub-total">
+            <td>Transportation (confirmed)</td>
+            <td>$661.49+</td>
           </tr>
         </tfoot>
       </table>
@@ -1377,69 +1421,89 @@
 
     <div class="cost-section">
       <h3>Production &amp; Operations</h3>
-      <table class="cost-table">
+      <table class="cost-tbl">
         <tbody>
           <tr>
             <td>
-              <div class="cost-item">Larry Deposit — Fronted by Mike</div>
-              <div class="cost-note">No. 9 covered deposit on behalf of production</div>
+              <div class="c-item">Larry Deposit — Fronted by Mike</div>
+              <div class="c-note">No. 9 covered on behalf of production</div>
             </td>
-            <td class="cost-amount">$15,000.00</td>
+            <td>$15,000.00</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">On-Site Labor</div>
-              <div class="cost-note">$1,000/person/day · 8 service days total</div>
+              <div class="c-item">On-Site Labor</div>
+              <div class="c-note">$1,000/person/day · 8 service days</div>
             </td>
-            <td class="cost-amount">$8,000.00</td>
+            <td>$8,000.00</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">Production Costs (rentals — chairs, tables, linens, etc.)</div>
-              <div class="cost-note">Fronted by No. 9 · Full doc pending</div>
+              <div class="c-item">Polaroid inclusion</div>
+              <div class="c-note">Out-of-pocket · Used in social content</div>
             </td>
-            <td class="cost-amount cost-tbd">TBC</td>
+            <td>$500.00</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">Materials to Esther</div>
-              <div class="cost-note">Production materials</div>
+              <div class="c-item">Production rentals — chairs, tables, linens, etc.</div>
+              <div class="c-note">Fronted by No. 9 · Full doc pending</div>
             </td>
-            <td class="cost-amount cost-tbd">TBC</td>
+            <td class="c-tbd">TBC</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">Amazon Purchases</div>
-              <div class="cost-note">Event supplies and materials</div>
+              <div class="c-item">Materials to Esther</div>
+              <div class="c-note">Production materials</div>
             </td>
-            <td class="cost-amount cost-tbd">TBC</td>
+            <td class="c-tbd">TBC</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">Polaroid Inclusion</div>
-              <div class="cost-note">Out-of-pocket · Used in social content</div>
+              <div class="c-item">Amazon — event supplies and materials</div>
             </td>
-            <td class="cost-amount">$500.00</td>
+            <td class="c-tbd">TBC</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">Poster Production</div>
-              <div class="cost-note">Printed materials for event</div>
+              <div class="c-item">Poster production</div>
+              <div class="c-note">Printed materials for event</div>
             </td>
-            <td class="cost-amount cost-tbd">TBC</td>
+            <td class="c-tbd">TBC</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">Security</div>
-              <div class="cost-note">On-site security management</div>
+              <div class="c-item">Security</div>
+              <div class="c-note">On-site security management</div>
             </td>
-            <td class="cost-amount cost-tbd">TBC</td>
+            <td class="c-tbd">TBC</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="c-item">Sales team — sourcing, pay, SOPs, contact email</div>
+              <div class="c-note">No. 9 built and managed the full sales operation</div>
+            </td>
+            <td class="c-tbd">TBC</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="c-item">Square + gallery payment system</div>
+              <div class="c-note">Set up through Mike's personal LLC · Additional tax implications incurred</div>
+            </td>
+            <td class="c-tbd">TBC</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="c-item">COA setup</div>
+              <div class="c-note">Client did not want to use their own · Managed by No. 9</div>
+            </td>
+            <td class="c-tbd">TBC</td>
           </tr>
         </tbody>
         <tfoot>
-          <tr class="cost-subtotal">
-            <td><strong>Production Subtotal (confirmed)</strong></td>
-            <td class="cost-amount"><strong>$23,500+</strong></td>
+          <tr class="sub-total">
+            <td>Production (confirmed)</td>
+            <td>$23,500+</td>
           </tr>
         </tfoot>
       </table>
@@ -1447,241 +1511,177 @@
 
     <div class="cost-section">
       <h3>Professional Services</h3>
-      <table class="cost-table">
+      <table class="cost-tbl">
         <tbody>
           <tr>
             <td>
-              <div class="cost-item">BFA Photography</div>
-              <div class="cost-note">Less $12,000 discount negotiated by No. 9</div>
+              <div class="c-item">BFA Photography</div>
+              <div class="c-note">Net of $12,000 discount negotiated by No. 9</div>
             </td>
-            <td class="cost-amount cost-tbd">TBC (net of $12K discount)</td>
+            <td class="c-tbd">TBC (net of $12K discount)</td>
           </tr>
           <tr>
             <td>
-              <div class="cost-item">Accounting Fees — No. 9 + Personal</div>
-              <div class="cost-note">Handling all expenses, production costs, and vendor payouts</div>
+              <div class="c-item">Accounting fees — No. 9 + Personal</div>
+              <div class="c-note">Handling all expenses, production costs, and vendor payouts</div>
             </td>
-            <td class="cost-amount cost-tbd">TBC</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="cost-item">COA Setup</div>
-              <div class="cost-note">Client did not want to use their own · Setup and managed by No. 9</div>
-            </td>
-            <td class="cost-amount cost-tbd">TBC</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="cost-item">Square + Gallery Payment System Setup</div>
-              <div class="cost-note">Through Mike's personal LLC · Additional tax implications incurred</div>
-            </td>
-            <td class="cost-amount cost-tbd">TBC</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="cost-item">Sales Team — Sourcing, Pay, SOPs</div>
-              <div class="cost-note">No. 9 built and managed the full sales operation</div>
-            </td>
-            <td class="cost-amount cost-tbd">TBC</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="cost-item">Contact Email Setup</div>
-              <div class="cost-note">Operational infrastructure created by No. 9</div>
-            </td>
-            <td class="cost-amount cost-tbd">TBC</td>
+            <td class="c-tbd">TBC</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="cost-section">
-      <h3>Unrealized / Uncollected Agency Value</h3>
-      <table class="cost-table">
-        <tbody>
-          <tr>
-            <td>
-              <div class="cost-item">No. 9 Agency Retainer — Not Collected</div>
-              <div class="cost-note">Standard retainer rate: $12,500/month. No retained agreement was in place. No. 9 operated in a fully speculative capacity.</div>
-            </td>
-            <td class="cost-amount" style="color:var(--accent)">$12,500+/mo</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="cost-item">Ongoing Pre-Event Work (Jan–May 2026)</div>
-              <div class="cost-note">Sponsor outreach, negotiations, brand relationships, social strategy, content direction, production management — all without retainer or compensation</div>
-            </td>
-            <td class="cost-amount" style="color:var(--accent)">5 months × $12,500</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="cost-item">PR Discount Secured</div>
-              <div class="cost-note">No. 9 relationships resulted in a $15,000 PR discount for the project</div>
-            </td>
-            <td class="cost-amount" style="color:var(--accent)">$15,000 saved</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="cost-item">Chef Roze — Reduced Fee</div>
-              <div class="cost-note">Accepted below-market rate because of No. 9's relationship. HexClad is a direct No. 9 network connection.</div>
-            </td>
-            <td class="cost-amount" style="color:var(--accent)">Discount TBC</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr class="cost-subtotal">
-            <td><strong>Unrealized Agency Value (5 months)</strong></td>
-            <td class="cost-amount" style="color:var(--accent)"><strong>$62,500+</strong></td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-
-    <div class="value-card">
-      <h3>The Real Number</h3>
-      <p>Confirmed out-of-pocket costs + unrealized agency fees + discounts secured = the true investment No. 9 made in this project. The $43,500 in sponsorships we secured doesn't exist without 5 months of uncompensated work. Neither does the Golden Goose collab, the press coverage, or the 1M follower milestone.</p>
-      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:32px; margin-top:32px;">
-        <div>
-          <div class="value-number">$43.5K</div>
-          <div style="font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(250,248,246,0.5)">Sponsorships Secured</div>
-        </div>
-        <div>
-          <div class="value-number">$62.5K+</div>
-          <div style="font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(250,248,246,0.5)">Unrealized Agency Fees</div>
-        </div>
-        <div>
-          <div class="value-number" style="color:var(--cream)">$27K+</div>
-          <div style="font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(250,248,246,0.5)">OOP Costs Fronted</div>
+    <div class="dark-band">
+      <div style="max-width:var(--col-w); margin:0 auto;">
+        <p class="label" style="color:rgba(255,255,255,0.35);">Unrealized Agency Value</p>
+        <h2>$62,500+ in agency fees never collected.</h2>
+        <p>No. 9 Agency's standard retainer starts at $12,500/month. No. 9 worked this project from January through May 2026 — five months — without a retainer, advance, or agreement. The $43,500 in sponsorships we secured does not exist without that uncompensated work. Neither does the Golden Goose collab, the press coverage, or the 1M follower milestone.</p>
+        <div class="stat-grid" style="margin-top:40px;">
+          <div class="stat-item">
+            <div class="stat-n">$62.5K+</div>
+            <div class="stat-l">Unrealized Retainer Fees</div>
+            <div class="stat-s">5 months × $12,500/mo</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-n">$15K</div>
+            <div class="stat-l">PR Discount Secured</div>
+            <div class="stat-s">Via No. 9 relationships</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-n">$12K</div>
+            <div class="stat-l">BFA Photography Discount</div>
+            <div class="stat-s">Negotiated by No. 9</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-n">$43.5K</div>
+            <div class="stat-l">Sponsorships Secured</div>
+            <div class="stat-s">Cash only</div>
+          </div>
         </div>
       </div>
     </div>
 
   </div>
+  <footer><span>Presented by CART Dept.</span><span>No. 9 Agency — Confidential</span><span>May 2026</span></footer>
 </div>
 
-<!-- ============ VALUE CREATED ============ -->
+<!-- ═══════════════════════════════════════
+     07 — VALUE CREATED
+═══════════════════════════════════════ -->
 <div class="page" id="page-value">
-  <div class="page-hero">
-    <p class="page-hero-eyebrow">Section 07</p>
-    <h1>Value Created</h1>
-    <p class="page-hero-sub">What was sold vs. what was built.</p>
+  <div class="section-header">
+    <div class="section-header-left">
+      <p class="section-num">07 — Value Created</p>
+      <h1 class="section-title">Value Created</h1>
+      <p class="section-desc">What was sold vs. what was built.</p>
+    </div>
+    <div class="section-header-right dark-fill">
+      <span>The scorecard.</span>
+    </div>
   </div>
-  <div class="page-content">
 
-    <div class="rule-gold"></div>
-    <h2>The Scorecard</h2>
+  <div class="content">
+    <p class="label">The Scorecard</p>
+    <h2>Total value generated: $215,000+</h2>
 
     <div class="stat-grid">
       <div class="stat-item">
-        <div class="stat-number gold">$43,500</div>
-        <div class="stat-label">Cash Sponsorships</div>
-        <div class="stat-sub">Secured by No. 9</div>
+        <div class="stat-n">$43.5K</div>
+        <div class="stat-l">Cash Sponsorships</div>
+        <div class="stat-s">Secured by No. 9</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number gold">$97K+</div>
-        <div class="stat-label">In-Kind Value</div>
-        <div class="stat-sub">GG, HexClad, Ruinart, Red Hook</div>
+        <div class="stat-n">$83K+</div>
+        <div class="stat-l">In-Kind Partner Value</div>
+        <div class="stat-s">GG, HexClad, Ruinart, Red Hook</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number gold">$75K+</div>
-        <div class="stat-label">Earned Media Value</div>
-        <div class="stat-sub">3 editorial placements</div>
+        <div class="stat-n">$75K+</div>
+        <div class="stat-l">Earned Media Value</div>
+        <div class="stat-s">3 editorial placements</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number gold">$15K</div>
-        <div class="stat-label">PR Discount Secured</div>
-        <div class="stat-sub">No. 9 relationship value</div>
+        <div class="stat-n">$15K</div>
+        <div class="stat-l">PR Discount</div>
+        <div class="stat-s">Via No. 9 relationships</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number gold">$12K</div>
-        <div class="stat-label">BFA Photography Discount</div>
-        <div class="stat-sub">Negotiated by No. 9</div>
+        <div class="stat-n">$12K</div>
+        <div class="stat-l">Photography Discount</div>
+        <div class="stat-s">BFA — negotiated</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number gold">$140K+</div>
-        <div class="stat-label">Total Partner Value</div>
-        <div class="stat-sub">Cash + in-kind combined</div>
+        <div class="stat-n">$62.5K+</div>
+        <div class="stat-l">Unrealized Agency Fees</div>
+        <div class="stat-s">5 months unretained</div>
       </div>
     </div>
 
-    <div class="rule"></div>
+    <hr class="rule">
 
-    <div class="rule-gold"></div>
-    <h2>What Can't Be Priced</h2>
+    <p class="label">What Can't Be Priced</p>
+    <h2>The compound return.</h2>
 
-    <div class="value-card">
-      <h3>The Compound Return</h3>
-      <ul class="value-points">
-        <li><strong>Kozo returned to 1 million Instagram followers</strong> during this campaign — a milestone that now opens doors that were previously closed.</li>
-        <li><strong>Three press placements in one week</strong> across the most culturally relevant design and art publications. All earned. All editorial. None of this is available at any media rate.</li>
-        <li><strong>The Golden Goose collab exists</strong> because No. 9 nurtured that relationship over months. GG brought their artisans to the show. That is not a transaction — that is a creative partnership.</li>
-        <li><strong>FLYBLACK is now in conversation for Basel</strong> and ongoing CART Dept programming. That pipeline starts here.</li>
-        <li><strong>The Delano Hotel Miami commission</strong> was generated by the cultural gravity of this event and the relationships built through it.</li>
-        <li><strong>Chef Roze accepted a below-market rate</strong> because the room, the project, and the No. 9 relationship made it worth it.</li>
-        <li><strong>Futura, Mickalene Thomas, Eric Haze</strong> were in that room. Their presence is a cultural endorsement that no press release can manufacture.</li>
-        <li><strong>Kozo is now positioned</strong> — in the press, in the art world, in brand consciousness — as an artist at the level of a CART Dept solo show. That positioning compresses the timeline for every deal that comes next.</li>
-      </ul>
-    </div>
+    <ul class="value-list">
+      <li><strong>Kozo returned to 1 million Instagram followers</strong> during this campaign. A milestone that opens doors that were previously closed.</li>
+      <li><strong>Three press placements in one week</strong> — Cool Hunting, Whitewall, Surface. All editorial, all earned. Not available at any media rate.</li>
+      <li><strong>No. 9 Agency is named in print</strong> in Cool Hunting as an exhibition supporter. Editorial recognition of our role.</li>
+      <li><strong>Golden Goose brought artisans to this project.</strong> That is a creative partnership, not a logo buy. It exists because No. 9 built that relationship over months.</li>
+      <li><strong>FLYBLACK is now in conversation for Basel</strong> and ongoing CART Dept programming. That pipeline starts here.</li>
+      <li><strong>The Delano Hotel Miami commission</strong> is a direct output of the cultural gravity of this event.</li>
+      <li><strong>Chef Roze accepted a below-market rate</strong> because the room was worth it.</li>
+      <li><strong>Futura, Mickalene Thomas, Eric Haze</strong> were in that room. Their presence is a cultural endorsement that cannot be manufactured.</li>
+      <li><strong>Kozo is now positioned</strong> at the level of a CART Dept solo show. That positioning compresses the timeline for every deal that comes next.</li>
+    </ul>
 
-    <div class="rule"></div>
-
-    <div class="rule-gold"></div>
-    <h2>Post-Event Content &amp; Deliverables</h2>
-    <p>The event produced assets that continue to generate value. Partner and sponsor content deliverables, BFA photography, editorial images, and social content are all ongoing outputs of what No. 9 built.</p>
-
-    <div class="data-placeholder">
-      <strong>Partner Deliverables Log</strong>
-      Summary of content deliverables owed to each sponsor — posts, stories, newsletter mentions, product placement credits — to be added here. Confirm with Cassie/Kiana what was promised and what has been delivered.
-    </div>
-
-    <div class="rule"></div>
-
-    <div class="pull-quote">
-      <p>"The exhibition was made possible by the generous support of CART Department, HexClad, Hennessy, Maison Ruinart &amp; Illycaffè, Golden Goose, FLYBLACK, DYNE by Sarah Ysabel Narici, Red Hook Detail Co. <strong>and No. 9 Agency.</strong>"</p>
-      <cite>Cool Hunting, May 17, 2026 — No. 9 Agency credited in print</cite>
+    <div class="dark-band" style="margin-top:56px;">
+      <div style="max-width:var(--col-w); margin:0 auto;">
+        <p class="label">Post-Event Deliverables</p>
+        <h2>The assets keep producing.</h2>
+        <p>BFA photography. Three editorial pieces. Social content across 5M+ combined partner followers. GG custom tees in attendees' hands. These are assets that continue to generate value after the show closes.</p>
+        <div class="placeholder" style="border-color:rgba(255,255,255,0.1); background:rgba(255,255,255,0.03);">
+          <strong style="color:rgba(255,255,255,0.3);">Partner Deliverables Log</strong>
+          <span style="color:rgba(255,255,255,0.3);">Summary of content deliverables owed to each sponsor — posts, stories, newsletter mentions — to be added here.</span>
+        </div>
+      </div>
     </div>
 
   </div>
+
+  <div class="closing">
+    <div>
+      <h2>Thank you.</h2>
+      <p>mike@no9agency.com</p>
+      <p style="margin-top:32px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Presented by CART Dept. &nbsp;·&nbsp; No. 9 Agency &nbsp;·&nbsp; Confidential</p>
+    </div>
+  </div>
+
+  <footer><span>Presented by CART Dept.</span><span>No. 9 Agency — Confidential</span><span>May 2026</span></footer>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-brand">NO. 9 <span>AGENCY</span></div>
-  <div>Kozo × CART Dept — Permanent Impermanence — May 2026</div>
-  <div>Confidential. For Kozo &amp; CART Department.</div>
-</footer>
-
+<!-- ═══════════════════════════════════════
+     JS
+═══════════════════════════════════════ -->
 <script>
   function showPage(id) {
-    document.querySelectorAll('.page, .hero-page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.page, .cover-page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-
-    const page = document.getElementById('page-' + id);
-    if (page) page.classList.add('active');
-
-    const navLink = document.getElementById('nav-' + id);
-    if (navLink) navLink.classList.add('active');
-
+    const pg = document.getElementById('page-' + id);
+    if (pg) pg.classList.add('active');
+    const nav = document.getElementById('nav-' + id);
+    if (nav) nav.classList.add('active');
     window.scrollTo(0, 0);
   }
 
-  // PDF export
-  function printPDF() {
-    document.querySelectorAll('.page, .hero-page').forEach(p => p.style.display = 'block');
-    window.print();
-    // restore after print
-    setTimeout(() => {
-      document.querySelectorAll('.page, .hero-page').forEach(p => p.style.display = '');
-      showPage('hero');
-    }, 1000);
-  }
+  const pages = ['cover','overview','partners','press','social','world','costs','value'];
 
-  // keyboard nav
   document.addEventListener('keydown', e => {
-    const pages = ['hero','overview','sponsors','press','social','world','costs','value'];
-    const current = pages.findIndex(p => document.getElementById('page-'+p).classList.contains('active'));
-    if (e.key === 'ArrowRight' && current < pages.length - 1) showPage(pages[current + 1]);
-    if (e.key === 'ArrowLeft' && current > 0) showPage(pages[current - 1]);
+    const cur = pages.findIndex(p => {
+      const el = document.getElementById('page-' + p);
+      return el && el.classList.contains('active');
+    });
+    if (e.key === 'ArrowRight' && cur < pages.length - 1) showPage(pages[cur + 1]);
+    if (e.key === 'ArrowLeft'  && cur > 0)               showPage(pages[cur - 1]);
   });
 </script>
 </body>
