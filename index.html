@@ -214,6 +214,9 @@ footer span{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:upp
   a{color:inherit!important;text-decoration:none!important}
 }
 @media(max-width:768px){
+  /* OVERFLOW PREVENTION */
+  html,body{max-width:100vw;overflow-x:hidden}
+
   /* NAV */
   nav{padding:0 20px;height:56px}
   .nav-logo{font-size:10px}
@@ -224,29 +227,30 @@ footer span{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:upp
   .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
   .hamburger span{display:block;width:22px;height:2px;background:var(--navy);transition:.2s}
 
-  /* LAYOUT */
+  /* LAYOUT — match 56px mobile nav */
+  .page{padding-top:56px}
+  .cover-page{padding-top:56px}
   .cover-page,.sec-hdr{flex-direction:column}
   .cover-left,.cover-right,.sec-hdr-left,.sec-hdr-right{width:100%}
   .cover-right{height:240px}
   .cover-left{padding:32px 20px}
-  .cover-title{font-size:clamp(40px,12vw,64px)}
-  .cover-sub{font-size:16px;margin-bottom:32px}
-  .cover-meta{grid-template-columns:1fr 1fr}
-  .sec-hdr-left{padding:32px 20px 24px}
-  .sec-hdr-right{height:180px}
-  .sec-title{font-size:clamp(28px,8vw,40px)}
+  .cover-title{font-size:clamp(36px,11vw,60px)}
+  .cover-sub{font-size:15px;margin-bottom:28px}
+  .sec-hdr-left{padding:28px 20px 20px}
+  .sec-hdr-right{height:160px}
+  .sec-title{font-size:clamp(24px,7vw,36px)}
 
   /* CONTENT */
-  .content{padding:28px 16px}
-  .dark{padding:28px 16px}
-  .content-wide{padding:28px 16px}
-  h2{font-size:clamp(18px,5vw,26px)}
-  h3{font-size:16px;margin:32px 0 12px}
+  .content{padding:24px 16px}
+  .dark{padding:24px 16px}
+  .content-wide{padding:24px 16px}
+  h2{font-size:clamp(18px,5vw,24px)}
+  h3{font-size:15px;margin:28px 0 10px}
   p{font-size:14px}
 
   /* GRIDS */
   .stat-grid{grid-template-columns:1fr 1fr}
-  .stat-item{padding:18px 14px}
+  .stat-item{padding:16px 12px}
   .stat-n{font-size:clamp(18px,5vw,26px)}
   .press-grid{grid-template-columns:1fr}
   .rel-grid{grid-template-columns:1fr}
@@ -255,20 +259,20 @@ footer span{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:upp
   .big-stats{grid-template-columns:1fr 1fr}
   .bucket-grid{grid-template-columns:1fr}
   .guest-grid{grid-template-columns:1fr 1fr}
-  .split{grid-template-columns:1fr;gap:24px}
-  .tier-grid{grid-template-columns:repeat(2,1fr)}
+  .split{grid-template-columns:1fr;gap:20px}
   .meta-row{grid-template-columns:1fr}
-  .cover-meta-item{border-right:none;border-bottom:1px solid var(--rule);padding:12px 0}
-  .cover-meta-item:last-child{border-bottom:none}
+  .meta-item{border-right:none;border-bottom:1px solid var(--rule);padding:12px 0}
+  .meta-item:last-child{border-bottom:none}
 
   /* PHOTOS */
   .photo-row.cols-2{grid-template-columns:1fr 1fr}
   .photo-row.cols-3{grid-template-columns:1fr 1fr}
   .photo-row.cols-4{grid-template-columns:1fr 1fr}
-  .photo-cell{height:160px}
+  .photo-cell{height:140px}
 
-  /* SOCIAL COVERAGE 4-COL */
+  /* SOCIAL COVERAGE INLINE GRID */
   div[style*="repeat(4,1fr)"]{grid-template-columns:1fr 1fr!important}
+  div[style*="height:220px"]{height:150px!important}
 
   /* TABLES */
   .tbl{font-size:12px}
@@ -279,17 +283,26 @@ footer span{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:upp
   table.tbl{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
 
   /* COST TABLE */
-  .cost-tbl{font-size:13px}
+  table.cost-tbl{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;font-size:13px}
+  .cost-tbl td:last-child{white-space:nowrap}
+
+  /* GUEST GRID */
+  .g-name{font-size:14px}
+  .g-role{font-size:10px}
 
   /* BLOCKQUOTE */
-  .bq p{font-size:15px}
+  .bq{margin:24px 0}
+  .bq p{font-size:14px}
 
   /* CLOSING */
-  .closing{padding:48px 20px;min-height:200px}
-  .closing h2{font-size:clamp(28px,8vw,48px)}
+  .closing{padding:40px 20px;min-height:auto}
+  .closing h2{font-size:clamp(28px,8vw,44px)}
+
+  /* DARK BAND */
+  .dark div[style]{max-width:100%!important}
 
   /* FOOTER */
-  footer{flex-direction:column;gap:6px;text-align:center;padding:20px 16px}
+  footer{flex-direction:column;gap:6px;text-align:center;padding:16px}
 }
 </style>
 </head>
@@ -363,8 +376,8 @@ footer span{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:upp
     </div>
 
     <div class="stat-grid">
-      <div class="stat-item"><div class="stat-n" style="font-size:24px;color:#0D1B2A">~$424,000+</div><div class="stat-l">Total Value Generated</div><div class="stat-s">Total partner value + EMV + No.9 discounts + unrealized fees</div></div>
-      <div class="stat-item"><div class="stat-n">3</div><div class="stat-l">Editorial Placements</div><div class="stat-s">Cool Hunting, Whitewall, Surface</div></div>
+      <div class="stat-item"><div class="stat-n" style="font-size:24px;color:#0D1B2A">~$459,000+</div><div class="stat-l">Total Value Generated</div><div class="stat-s">Total partner value + EMV + No.9 discounts + unrealized fees</div></div>
+      <div class="stat-item"><div class="stat-n">5</div><div class="stat-l">Editorial Placements</div><div class="stat-s">Cool Hunting, Whitewall, Surface, NY Post, The Knockturnal</div></div>
       <div class="stat-item"><div class="stat-n">8</div><div class="stat-l">Brand Partners</div><div class="stat-s">Luxury, F&amp;B, lifestyle, aviation</div></div>
       <div class="stat-item"><div class="stat-n">1M</div><div class="stat-l">Followers Milestone</div><div class="stat-s">Recovered + surpassed after event</div></div>
       <div class="stat-item"><div class="stat-n">8+</div><div class="stat-l">VIP Art World Names</div><div class="stat-s">In the room, night of</div></div>
@@ -374,10 +387,10 @@ footer span{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:upp
     <hr class="rule">
 
     <p class="label">Value Breakdown</p>
-    <h2>Total measurable value generated: ~$424,000+</h2>
+    <h2>Total measurable value generated: ~$459,000+</h2>
     <div class="stat-grid">
       <div class="stat-item"><div class="stat-n">$181.5K+</div><div class="stat-l">Total Partner Value</div><div class="stat-s">Cash + in-kind combined</div></div>
-      <div class="stat-item"><div class="stat-n">$125K+</div><div class="stat-l">Earned Media Value</div><div class="stat-s">Editorial + newsletter features</div></div>
+      <div class="stat-item"><div class="stat-n">$160K+</div><div class="stat-l">Earned Media Value</div><div class="stat-s">Editorial + newsletter + NY Post print</div></div>
       <div class="stat-item"><div class="stat-n">$50K</div><div class="stat-l">No. 9 Discounts</div><div class="stat-s">Photography + PR secured</div></div>
       <div class="stat-item"><div class="stat-n">$67.5K</div><div class="stat-l">Unrealized Agency Value</div><div class="stat-s">5 months retainer + 5 days on-site</div></div>
     </div>
@@ -388,7 +401,7 @@ footer span{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:upp
     <h2>The compound return.</h2>
     <ul class="val-list">
       <li><strong>Kozo recovered to 1,000,129 Instagram followers</strong> — back above 1M after Venice's IG purge. The event drove the recovery.</li>
-      <li><strong>Three press placements in one week</strong> — Cool Hunting (May 17), Whitewall (May 19), Surface (May 20). All editorial, all earned.</li>
+      <li><strong>Five press placements</strong> — Cool Hunting (May 17), Whitewall (May 19), Surface (May 20), The Knockturnal, and a New York Post Sightings print mention. All editorial, all earned.</li>
       <li>Complex, @howhistorylooks, @inkedmag, and @artist all covered the show organically. <strong>66M+ combined reach.</strong></li>
       <li><strong>No. 9 Agency named in Cool Hunting editorial</strong> — not paid for, not asked for. Our name in print alongside Kozo and CART Dept.</li>
       <li><strong>Golden Goose is moving forward with an integrated co-creation campaign.</strong> The event gave them the confidence to commit.</li>
@@ -559,7 +572,7 @@ footer span{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:upp
     <div class="sec-hdr-left">
       <p class="sec-num">03 — Press</p>
       <h1 class="sec-title">Press Recap</h1>
-      <p class="sec-desc">Three editorial placements plus newsletter features. All earned, none paid.</p>
+      <p class="sec-desc">Five editorial placements including New York Post print. All earned, none paid.</p>
     </div>
     <div class="sec-hdr-right">
       <img src="https://coolhunting.com/wp-content/uploads/2026/05/BFA_54427_7921371-1024x683.jpg" alt="The Mustang" onerror="this.parentNode.style.background='var(--navy-mid)'">
@@ -567,10 +580,26 @@ footer span{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:upp
   </div>
   <div class="content">
     <p class="label">Coverage to Date</p>
-    <h2>Cool Hunting. Whitewall. Surface. Complex. One week.</h2>
-    <p>Every placement is editorial — not paid, not sponsored content. These are writers and editors at major culture publications who chose to cover the work. That is the result of a press strategy, existing relationships, and the quality of experience No. 9 helped build. <strong>No. 9 Agency is named by name in Cool Hunting</strong> as one of the exhibition's supporting partners. Both <strong>Surface Magazine and Cool Hunting also featured the story in their newsletters</strong> — adding an additional estimated $50K in newsletter media value on top of editorial placement value.</p>
+    <h2>Cool Hunting. Whitewall. Surface. The Knockturnal. New York Post. Complex.</h2>
+    <p>Every placement is editorial — not paid, not sponsored content. These are writers and editors at major culture publications who chose to cover the work. That is the result of a press strategy, existing relationships, and the quality of experience No. 9 helped build. <strong>No. 9 Agency is named by name in Cool Hunting</strong> as one of the exhibition's supporting partners. Both <strong>Surface Magazine and Cool Hunting also featured the story in their newsletters</strong> — adding an additional estimated $50K in newsletter media value on top of editorial placement value. The story also landed in the <strong>New York Post Sightings column</strong> (print, 481K daily circulation) and earned a full feature from <strong>The Knockturnal</strong>.</p>
 
     <div class="press-grid">
+      <div class="press-card" style="border-top:2px solid #000">
+        <div class="p-pub">New York Post — Sightings (Print)</div>
+        <div class="p-hed">Sightings: Mickalene Thomas, Futura &amp; Art World Elite at HexClad x Kozo Dinner</div>
+        <p class="p-body">The <em>New York Post</em> Sightings column — the paper's signature celebrity and cultural intelligence column — named Mickalene Thomas, Latham Thomas, Futura, and Marcus Allen at the HexClad x Kozo dinner at Free Parking. Print placement in the country's largest-circulation tabloid. <strong>481K daily print circulation. 71.8K NYC DMA.</strong></p>
+        <p class="p-date">May 2026 — Print Edition</p>
+        <div style="margin-top:16px;border:1px solid var(--rule);overflow:hidden;max-height:220px">
+          <img src="nypost-clip.jpg" style="width:100%;object-fit:cover;object-position:top;display:block" alt="NY Post Sightings clip" onerror="this.parentNode.style.display='none'">
+        </div>
+      </div>
+      <div class="press-card">
+        <div class="p-pub">The Knockturnal</div>
+        <div class="p-hed">HexClad Serves Up Night of Culinary Artistry</div>
+        <p class="p-body">Full editorial feature by Deputy Editor ElizaBeth Taylor (formerly Variety, E! News, Ebony Magazine). Covers the full exhibition, dinner by Chef Roze Traore, and the Kozo x CART Dept collaboration. HexClad, Hennessy, and No. 9's cultural positioning all featured. <strong>Est. 400K+ monthly readers.</strong></p>
+        <a href="https://theknockturnal.com/hexclad-serves-up-night-of-culinary-artistry/" target="_blank" class="p-link">Read Article →</a>
+        <p class="p-date">May 2026</p>
+      </div>
       <div class="press-card">
         <div class="p-pub">Cool Hunting</div>
         <div class="p-hed">Permanent Impermanence: Kozo Stages a Collision of Versailles, Tattoo Craft and American Muscle</div>
@@ -602,10 +631,10 @@ footer span{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:upp
     </div>
 
     <div class="stat-grid">
-      <div class="stat-item"><div class="stat-n">3</div><div class="stat-l">Editorial Placements</div><div class="stat-s">All earned, none paid</div></div>
+      <div class="stat-item"><div class="stat-n">5</div><div class="stat-l">Editorial Placements</div><div class="stat-s">All earned, none paid</div></div>
       <div class="stat-item"><div class="stat-n">66M+</div><div class="stat-l">Combined Social Reach</div><div class="stat-s">Complex, @howhistorylooks, @inkedmag + more</div></div>
-      <div class="stat-item"><div class="stat-n">~2.5M</div><div class="stat-l">Combined Monthly Reach</div><div class="stat-s">CH + Surface + Whitewall</div></div>
-      <div class="stat-item"><div class="stat-n">$125K+</div><div class="stat-l">Earned Media Value</div><div class="stat-s">Editorial + Surface &amp; Cool Hunting newsletters</div></div>
+      <div class="stat-item"><div class="stat-n">481K</div><div class="stat-l">NY Post Print Circulation</div><div class="stat-s">Daily print + 71.8K NYC DMA</div></div>
+      <div class="stat-item"><div class="stat-n">$160K+</div><div class="stat-l">Earned Media Value</div><div class="stat-s">Editorial + newsletters + NY Post print</div></div>
     </div>
 
     <div class="photo-row cols-3">
